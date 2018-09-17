@@ -6,24 +6,12 @@ if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
     set(CMAKE_TOOLCHAIN_FILE "../../../cmake/toolchain.cmake")
 endif()
 
-# Assign a dbg tag to delineate debug build outputs
-if(NOT CMAKE_DEBUG_POSTFIX)
-    set(CMAKE_DEBUG_POSTFIX _dbg)
-endif()
-
-# Assign a rel tag to delineate release build outputs
-if(NOT CMAKE_RELEASE_POSTFIX)
-    set(CMAKE_RELEASE_POSTFIX _rel)
-endif()
-
 # Make sure we use a decent memory management strategy
 if(NOT FREERTOS_MEMMANG_TYPE)
     set(FREERTOS_MEMMANG_NAME "heap_4")
 else()
     set(FREERTOS_MEMMANG_NAME "heap_${FREERTOS_MEMMANG_TYPE}")
 endif()
-
-
 
 # Figure out the directories needed
 set(FREERTOS_ROOT "${CMAKE_CURRENT_LIST_DIR}")
