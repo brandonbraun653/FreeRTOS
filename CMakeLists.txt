@@ -1,9 +1,8 @@
 cmake_minimum_required(VERSION 3.12.2)
-include("../../../cmake/gcc_stm32.cmake")
-
-# Assign the Thor toolchain file if one isn't passed to the command line
-if(NOT DEFINED CMAKE_TOOLCHAIN_FILE)
-    set(CMAKE_TOOLCHAIN_FILE "../../../cmake/toolchain.cmake")
+if(${STM32_CMAKE_TOOLS_DIR})
+    include("${STM32_CMAKE_TOOLS_DIR}/gcc_stm32.cmake")
+else()
+    message(FATAL_ERROR "Could not find STM32_CMAKE_TOOLS_DIR")
 endif()
 
 # Make sure we use a decent memory management strategy
@@ -15,20 +14,19 @@ endif()
 
 # Figure out the directories needed
 set(FREERTOS_ROOT "${CMAKE_CURRENT_LIST_DIR}")
-
 set(FREERTOS_GENERAL_INC_DIR "${FREERTOS_ROOT}/Include")
 
-## Set device specific paths for the STM32 Family
-message(STATUS "STM32Fam val: ${STM32_FAMILY}")
+# Set device specific paths for the STM32 Family
 if(STM32_FAMILY)
     if("${STM32_FAMILY}" STREQUAL "F4")
+        message(STATUS "Compiling FreeRTOS for STM32F4 Family")
         set(FREERTOS_DEVICE_INC_DIR "${FREERTOS_ROOT}/portable/GCC/ARM_CM4F")
         set(FREERTOS_COMPILE_OPTIONS ${STM32F4_COMPILE_OPTIONS})
 
     elseif("${STM32_FAMILY}" STREQUAL "F7")
+    message(STATUS "Compiling FreeRTOS for STM32F7 Family")
         set(FREERTOS_DEVICE_INC_DIR "${FREERTOS_ROOT}/portable/GCC/ARM_CM7/r0p1")
         set(FREERTOS_COMPILE_OPTIONS ${STM32F7_COMPILE_OPTIONS})
-        # TODO: There are a few other types of f7 dirs that might be there....
     else()
         message(FATAL_ERROR "Device family ${STM32_FAMILY} isn't supported yet!")
     endif()
@@ -37,13 +35,13 @@ else()
     message(FATAL_ERROR "Unknown device to compile FreeRTOS for!")  
 endif()
 
-## Find the relative source files
+# Find the relative source files
 set(FREERTOS_DEVICE_SRC_FILES "${FREERTOS_DEVICE_INC_DIR}/port.c")
 set(FREERTOS_COMMON_SRC_FILES "${FREERTOS_ROOT}/portable/Common/mpu_wrappers.c")
 set(FREERTOS_MEMMANG_SRC_FILES "${FREERTOS_ROOT}/portable/Memmang/${FREERTOS_MEMMANG_NAME}.c")
 file(GLOB FREERTOS_ROOT_SRC_FILES "${FREERTOS_ROOT}/*.c")
 
-## Combine the source file listing and header directories into one set of vars
+# Combine the source file listing and header directories into one set of vars
 set(FREERTOS_INC_DIRS
     "${FREERTOS_GENERAL_INC_DIR}"
     "${FREERTOS_DEVICE_INC_DIR}"
