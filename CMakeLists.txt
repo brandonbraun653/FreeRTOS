@@ -14,7 +14,9 @@ else()
     set(FREERTOS_MEMMANG_NAME "heap_${FREERTOS_MEMMANG_TYPE}")
 endif()
 
-# Figure out the directories needed
+# --------------------------------------
+# Figure out the directories needed for a specific device
+# --------------------------------------
 set(FREERTOS_ROOT "${CMAKE_CURRENT_LIST_DIR}")
 set(FREERTOS_GENERAL_INC_DIR "${FREERTOS_ROOT}/Include")
 
@@ -43,16 +45,24 @@ else()
     message(FATAL_ERROR "Unknown device to compile FreeRTOS for!")  
 endif()
 
-# Find the relative source files
+# Create the combined header directory and make it public to whoever includes this file
+set(FREERTOS_INC_DIRS "${FREERTOS_GENERAL_INC_DIR}" "${FREERTOS_DEVICE_INC_DIR}")
+set_property(GLOBAL PROPERTY FREERTOS_INC_DIRS "${FREERTOS_INC_DIRS}")
+
+# --------------------------------------
+# Find the specific source files
+# --------------------------------------
 set(FREERTOS_DEVICE_SRC_FILES "${FREERTOS_DEVICE_INC_DIR}/port.c")
 set(FREERTOS_COMMON_SRC_FILES "${FREERTOS_ROOT}/portable/Common/mpu_wrappers.c")
 set(FREERTOS_MEMMANG_SRC_FILES "${FREERTOS_ROOT}/portable/Memmang/${FREERTOS_MEMMANG_NAME}.c")
-file(GLOB FREERTOS_ROOT_SRC_FILES "${FREERTOS_ROOT}/*.c")
-
-# Combine the source file listing and header directories into one set of vars
-set(FREERTOS_INC_DIRS
-    "${FREERTOS_GENERAL_INC_DIR}"
-    "${FREERTOS_DEVICE_INC_DIR}"
+set(FREERTOS_ROOT_SRC_FILES 
+    "${FREERTOS_ROOT}/croutine.c"
+    "${FREERTOS_ROOT}/event_groups.c"
+    "${FREERTOS_ROOT}/list.c"
+    "${FREERTOS_ROOT}/queue.c"
+    "${FREERTOS_ROOT}/stream_buffer.c"
+    "${FREERTOS_ROOT}/tasks.c"
+    "${FREERTOS_ROOT}/timers.c"
 )
 
 set(FREERTOS_SRC_FILES
