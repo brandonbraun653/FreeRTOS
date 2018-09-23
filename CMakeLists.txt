@@ -18,7 +18,7 @@ endif()
 # Figure out the directories needed for a specific device
 # --------------------------------------
 set(FREERTOS_ROOT "${CMAKE_CURRENT_LIST_DIR}")
-set(FREERTOS_GENERAL_INC_DIR "${FREERTOS_ROOT}/Include")
+set(FREERTOS_GENERAL_INC_DIR "${FREERTOS_ROOT}/include")
 
 # Set device specific paths for the STM32 Family
 if(STM32_DEVICE_FAMILY)
@@ -54,7 +54,7 @@ set_property(GLOBAL PROPERTY FREERTOS_INC_DIRS "${FREERTOS_INC_DIRS}")
 # --------------------------------------
 set(FREERTOS_DEVICE_SRC_FILES "${FREERTOS_DEVICE_INC_DIR}/port.c")
 set(FREERTOS_COMMON_SRC_FILES "${FREERTOS_ROOT}/portable/Common/mpu_wrappers.c")
-set(FREERTOS_MEMMANG_SRC_FILES "${FREERTOS_ROOT}/portable/Memmang/${FREERTOS_MEMMANG_NAME}.c")
+set(FREERTOS_MEMMANG_SRC_FILES "${FREERTOS_ROOT}/portable/MemMang/${FREERTOS_MEMMANG_NAME}.c")
 set(FREERTOS_ROOT_SRC_FILES 
     "${FREERTOS_ROOT}/croutine.c"
     "${FREERTOS_ROOT}/event_groups.c"
