@@ -73,9 +73,15 @@ set(FREERTOS_SRC_FILES
 )
 
 # --------------------------------------
+# Store all the header files 
+# --------------------------------------
+
+
+
+# --------------------------------------
 # Define the project
 # --------------------------------------
-project(FreeRTOS)
+project(FreeRTOS VERSION 10.0.0)
 
 if(CMAKE_GENERATOR STREQUAL "Unix Makefiles" OR CMAKE_GENERATOR STREQUAL "MinGW Makefiles")
     add_library(${PROJECT_NAME} STATIC ${FREERTOS_SRC_FILES})
