@@ -1,0 +1,3 @@
+[submodule "cmake/stm32-cmake"]
+	path = cmake/stm32-cmake
+	url = git@github.com:brandonbraun653/stm32-cmake.git
