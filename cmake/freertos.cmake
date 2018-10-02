@@ -1,12 +1,4 @@
-if(NOT INSTALL_CMAKE_ROOT_DIR)
-    if(WIN32)
-        set(INSTALL_CMAKE_ROOT_DIR "C:/CMakeModules")
-    elseif(UNIX)
-        set(INSTALL_CMAKE_ROOT_DIR "/home/$ENV{USER}/CMakeModules")
-    else()
-        message(WARNING "No install directory is set! You will be able to build locally but not install.")
-    endif()
-endif()
+
 
 # This is so we can find any needed packages
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${INSTALL_CMAKE_ROOT_DIR})
@@ -63,3 +55,21 @@ macro(FREERTOS_GET_STM32_PROPERTIES FAMILY ROOT_DIR REL_DEVICE_INC_DIRS REL_CFG_
     endif()
 endmacro()
 
+# --------------------------------------
+# Get the module installation root directory
+# --------------------------------------
+function(CMAKE_GET_MODULE_INSTALL_ROOT_DIR DIR)
+    if($ENV{CMAKE_MODULES})
+        set(CMAKE_MODULE_DIR $ENV{CMAKE_MODULES})
+    else()
+        if(WIN32)
+            set(CMAKE_MODULE_DIR "C:/CMakeModules")
+        elseif(UNIX)
+            set(CMAKE_MODULE_DIR "/home/$ENV{USER}/CMakeModules")
+        endif()
+    endif()
+
+    message(STATUS "Using CMake module install directory: ${CMAKE_MODULE_DIR}")
+
+    set(${DIR} ${CMAKE_MODULE_DIR} PARENT_SCOPE)
+endfunction()
