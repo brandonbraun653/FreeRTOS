@@ -19,26 +19,7 @@ set(VERSION_INSTALL_DIR "${INSTALL_ROOT_DIR}/freertos/${FREERTOS_VERSION}")
 # --------------------------------------
 # Get properties for the given target architecture and device 
 # --------------------------------------
-if(TARGET_ARCHITECTURE)
-    if(TARGET_DEVICE)
-        if(${TARGET_ARCHITECTURE} STREQUAL "STM32")
-            FREERTOS_GET_STM32_PROPERTIES(
-                TARGET_DEVICE
-                FREERTOS_ROOT
-                FREERTOS_RELATIVE_DEVICE_INC_DIR
-                FREERTOS_RELATIVE_CFG_INC_DIR
-                FREERTOS_DEVICE_COMPILER_OPTIONS
-                FREERTOS_DEVICE_EXPORT_SUBFLDR
-            )
-        else()
-            message(FATAL_ERROR "Unknown target architecture [${TARGET_ARCHITECTURE}]!")
-        endif()
-    else()
-        message(FATAL_ERROR "Please specify a TARGET_DEVICE to use for FreeRTOS architecture [${TARGET_ARCHITECTURE}]")
-    endif()
-else()
-    message(FATAL_ERROR "Please specify a TARGET_ARCHITECTURE to use for FreeRTOS. Options are [${SUPPORTED_TARGET_ARCHITECTURES}]")
-endif()
+PROCESS_TARGET(TARGET_ARCHITECTURE TARGET_DEVICE FREERTOS_ROOT)
 
 
 # Make sure we use a decent memory management strategy
@@ -59,9 +40,8 @@ set(REL_CMAKE_DIR "cmake")
 # --------------------------------------
 # Grab the needed .c files
 # --------------------------------------
-# Target architecture & device specific
 set(FREERTOS_DEVICE_SRC_FILES 
-    "${FREERTOS_ROOT}/${FREERTOS_RELATIVE_DEVICE_INC_DIR}/port.c"
+    "${FREERTOS_ROOT}/${RELATIVE_TARGET_DEVICE_INC_DIR}/port.c"
 )
 
 set(FREERTOS_COMMON_SRC_FILES 
@@ -91,14 +71,14 @@ set(FREERTOS_ALL_SRC_FILES
 
 # --------------------------------------
 # Grab all the needed .h files. This is for the purpose of installing all the 
-# targets into the INSTALL_CMAKE_DIR and need to be relative paths.
+# targets into the VERSION_INSTALL_DIR and need to be relative paths.
 # --------------------------------------
 set(FREERTOS_DEVICE_INC_FILES
-    "${FREERTOS_RELATIVE_DEVICE_INC_DIR}/portmacro.h"
+    "${RELATIVE_TARGET_DEVICE_INC_DIR}/portmacro.h"
 )
 
 set(FREERTOS_CFG_INC_FILES
-    "${FREERTOS_RELATIVE_CFG_INC_DIR}/FreeRTOSConfig.h"
+    "${RELATIVE_CFG_INC_DIR}/FreeRTOSConfig.h"
 )
 
 set(FREERTOS_GENERAL_INC_FILES
@@ -126,22 +106,22 @@ set(FREERTOS_GENERAL_INC_FILES
 # --------------------------------------
 # This is for local builds
 set(FREERTOS_BUILD_INC_DIRS 
-    "${FREERTOS_ROOT}/${FREERTOS_RELATIVE_CFG_INC_DIR}"
-    "${FREERTOS_ROOT}/${FREERTOS_RELATIVE_DEVICE_INC_DIR}"
+    "${FREERTOS_ROOT}/${RELATIVE_CFG_INC_DIR}"
+    "${FREERTOS_ROOT}/${RELATIVE_TARGET_DEVICE_INC_DIR}"
     "${FREERTOS_ROOT}/${REL_INCLUDE_DIR}"
 )
 
 # These are for the install command
 set(FREERTOS_INSTALL_INC_DIRS
-    "${INSTALL_CMAKE_DIR}/${FREERTOS_RELATIVE_CFG_INC_DIR}"
-    "${INSTALL_CMAKE_DIR}/${FREERTOS_RELATIVE_DEVICE_INC_DIR}"
-    "${INSTALL_CMAKE_DIR}/${REL_INCLUDE_DIR}"
+    "${VERSION_INSTALL_DIR}/${RELATIVE_CFG_INC_DIR}"
+    "${VERSION_INSTALL_DIR}/${RELATIVE_TARGET_DEVICE_INC_DIR}"
+    "${VERSION_INSTALL_DIR}/${REL_INCLUDE_DIR}"
 )
 
 # --------------------------------------
 # Define the project
 # --------------------------------------
-project(FreeRTOS VERSION 10.0.0 LANGUAGES C)
+project("FreeRTOS_${TARGET_DEVICE_EXPORT_SUBFLDR}" VERSION 10.0.0 LANGUAGES C)
 add_library(${PROJECT_NAME} STATIC ${FREERTOS_ALL_SRC_FILES})
 
 # Add the include directories
@@ -153,21 +133,25 @@ target_include_directories(${PROJECT_NAME} INTERFACE
 
 # Add target/build specific compiler options. Keep these private as usually FreeRTOS
 # is a part of a larger project and has its own options we don't want to override.
-target_compile_options(${PROJECT_NAME} PRIVATE ${FREERTOS_DEVICE_COMPILER_OPTIONS})
+target_compile_options(${PROJECT_NAME} PRIVATE ${TARGET_DEVICE_COMPILER_OPTIONS})
 target_compile_options(${PROJECT_NAME} PRIVATE --std=gnu11)
 target_compile_options(${PROJECT_NAME} PRIVATE $<$<CONFIG:DEBUG>:-ggdb -Og>)
 target_compile_options(${PROJECT_NAME} PRIVATE $<$<CONFIG:RELEASE>:-O3>)
 
-install(TARGETS ${PROJECT_NAME} EXPORT FindFreeRTOS
-                DESTINATION "${VERSION_INSTALL_DIR}/${FREERTOS_DEVICE_EXPORT_SUBFLDR}" 
+# --------------------------------------
+# Install all needed resources
+# --------------------------------------
+install(TARGETS ${PROJECT_NAME} EXPORT Find${PROJECT_NAME}
+                DESTINATION "${VERSION_INSTALL_DIR}/${TARGET_DEVICE_EXPORT_SUBFLDR}" 
                 INCLUDES DESTINATION "${FREERTOS_INSTALL_INC_DIRS}")
 
-install(EXPORT FindFreeRTOS DESTINATION "${VERSION_INSTALL_DIR}/${FREERTOS_DEVICE_EXPORT_SUBFLDR}")
+# CMake file that exports this specific target
+install(EXPORT Find${PROJECT_NAME} DESTINATION "${VERSION_INSTALL_DIR}/${TARGET_DEVICE_EXPORT_SUBFLDR}")
 
 # Install the header files for use with find_package()
-install(FILES ${FREERTOS_CFG_INC_FILES} DESTINATION ${VERSION_INSTALL_DIR}/${FREERTOS_RELATIVE_CFG_INC_DIR})
-install(FILES ${FREERTOS_DEVICE_INC_FILES} DESTINATION ${VERSION_INSTALL_DIR}/${FREERTOS_RELATIVE_DEVICE_INC_DIR})
+install(FILES ${FREERTOS_CFG_INC_FILES} DESTINATION ${VERSION_INSTALL_DIR}/${RELATIVE_CFG_INC_DIR})
+install(FILES ${FREERTOS_DEVICE_INC_FILES} DESTINATION ${VERSION_INSTALL_DIR}/${RELATIVE_TARGET_DEVICE_INC_DIR})
 install(FILES ${FREERTOS_GENERAL_INC_FILES} DESTINATION ${VERSION_INSTALL_DIR}/${REL_INCLUDE_DIR})
 
-# Install the FindFreeRTOS.cmake file
+# Install the FindFreeRTOS.cmake file that locates a target from find_package()
 install(FILES ${REL_CMAKE_DIR}/FindFreeRTOS.cmake DESTINATION ${INSTALL_ROOT_DIR})

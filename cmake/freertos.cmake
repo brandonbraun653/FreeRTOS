@@ -1,8 +1,3 @@
-
-
-# This is so we can find any needed packages
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${INSTALL_CMAKE_ROOT_DIR})
-
 # --------------------------------------
 # Top level description of supported MCU families
 # --------------------------------------
@@ -35,7 +30,7 @@ macro(FREERTOS_GET_STM32_PROPERTIES FAMILY ROOT_DIR REL_DEVICE_INC_DIRS REL_CFG_
             set(${COMPILER_OPTIONS} "${STM32F4_COMPILER_OPTIONS}")
             set(${EXPORT_FOLDER} "STM32F4")
 
-            message(STATUS "FreeRTOS: Found supported STM32F4 family")
+            message(STATUS "Found supported STM32F4 family")
 
         # STM32F7
         elseif("${FAMILY}" STREQUAL "F7")
@@ -44,7 +39,7 @@ macro(FREERTOS_GET_STM32_PROPERTIES FAMILY ROOT_DIR REL_DEVICE_INC_DIRS REL_CFG_
             set(${REL_DEVICE_INC_DIRS} "portable/GCC/ARM_CM7/r0p1")
             set(${COMPILER_OPTIONS} "${STM32F7_COMPILER_OPTIONS}")
 
-            message(STATUS "FreeRTOS: Found supported STM32F7 family")
+            message(STATUS "Found supported STM32F7 family")
 
         # UNKNOWN/UNSUPPORTED
         else()
@@ -56,7 +51,38 @@ macro(FREERTOS_GET_STM32_PROPERTIES FAMILY ROOT_DIR REL_DEVICE_INC_DIRS REL_CFG_
 endmacro()
 
 # --------------------------------------
-# Get the module installation root directory
+# Process user defined target architectures/devices and import their properties
+# --------------------------------------
+macro(PROCESS_TARGET ARCHITECTURE DEVICE ROOT_DIR)
+    if((NOT ${ARCHITECTURE}) OR (NOT ${ARCHITECTURE} IN_LIST SUPPORTED_TARGET_ARCHITECTURES))
+        message(FATAL_ERROR "Please specify a valid TARGET_ARCHITECTURE to use for FreeRTOS. Options are [${SUPPORTED_TARGET_ARCHITECTURES}]")
+    endif()
+
+    # --------------------------------------
+    # STM32 Architecture
+    # --------------------------------------
+    if(${ARCHITECTURE} STREQUAL "STM32")
+
+        # Do we support the specified target?
+        if((NOT ${DEVICE}) OR (NOT ${DEVICE} IN_LIST STM32_SUPPORTED_DEVICE_FAMILIES))
+            message(FATAL_ERROR "Please specify a valid TARGET_DEVICE to use for architecture [${${ARCHITECTURE}}]. Options are [${STM32_SUPPORTED_DEVICE_FAMILIES}]")
+        endif()
+
+        FREERTOS_GET_STM32_PROPERTIES(
+            ${DEVICE}
+            ${ROOT_DIR}
+            RELATIVE_TARGET_DEVICE_INC_DIR
+            RELATIVE_CFG_INC_DIR
+            TARGET_DEVICE_COMPILER_OPTIONS
+            TARGET_DEVICE_EXPORT_SUBFLDR
+        )
+    else()
+        message(FATAL_ERROR "Unknown target architecture [${ARCHITECTURE}]!")
+    endif()
+endmacro()
+
+# --------------------------------------
+# Get the global module installation root directory
 # --------------------------------------
 function(CMAKE_GET_MODULE_INSTALL_ROOT_DIR DIR)
     if($ENV{CMAKE_MODULES})
