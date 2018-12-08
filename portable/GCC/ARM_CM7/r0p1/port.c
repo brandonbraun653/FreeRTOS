@@ -761,16 +761,6 @@ static void vPortEnableVFP( void )
 		configASSERT( ( portAIRCR_REG & portPRIORITY_GROUP_MASK ) <= ulMaxPRIGROUPValue );
 	}
 
-	
+
 
 #endif /* configASSERT_DEFINED */
-
-void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName)
-{
-	for (;;){}
-}
-
-void vApplicationMallocFailedHook( void )
-{
-	for(;;){}
-}
