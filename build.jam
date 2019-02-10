@@ -1,0 +1,132 @@
+import feature ;
+
+rule explicit_alias ( name : sources * : requirements * : default-build * : usage-requirements * )
+    {
+    alias $(name) : $(sources) : $(requirements) : $(default-build) : $(usage-requirements) ;
+    explicit $(name) ;
+    }
+
+
+
+# ------------------------------------------
+# Build Target Specific Options 
+# ------------------------------------------
+local dbg_defs = DEBUG ;
+local dbg_cflags = -ggdb -Og ;
+
+local rel_defs = NDEBUG ;
+local rel_cflags = -O3 ;
+
+
+# ------------------------------------------
+# CFlags generic enough to not be processor specific.
+# Only applies to FreeRTOS and are not propagated.
+# ------------------------------------------
+local requirements_cflags = 
+    -fno-common
+    -fmessage-length=0
+    -fno-exceptions
+    -ffunction-sections
+    -fdata-sections
+    -Wall
+    --std=gnu11 
+    ;
+
+# ------------------------------------------
+# Source/Include Directories 
+# ------------------------------------------
+local rtos_inc_dir = include ;
+local rtos_gcc_dir = portable/GCC ;
+local rtos_mem_mang_dir = portable/MemMang ;
+
+
+# ------------------------------------------
+# Source Files
+# ------------------------------------------
+local rtos_root_src = [ glob *.c ] ;
+local rtos_common_src = portable/Common/mpu_wrappers.c ;
+local rtos_src = $(rtos_root_src) ;
+
+# TODO: Make the MPU stuff a feature to be enabled for compilation
+
+project FreeRTOS : usage-requirements <include>$(rtos_inc_dir) ;
+
+# ------------------------------------------
+# STM32F4 Port
+# ------------------------------------------
+lib _DEVICE_TARGET
+    :   $(rtos_gcc_dir)/ARM_CM4F/port.c
+        /STM32F4//F4_TARGET_MCU             # Compiler/linker flags
+        /PRJ//FreeRTOS_CFG                  # FreeRTOSConfig.h
+
+    :   <FreeRTOS>enabled   
+        <ThorFamily>STM32F4
+        <toolset>gcc
+        <include>$(rtos_inc_dir)
+        <include>$(rtos_gcc_dir)/ARM_CM4F
+
+    :   <link>static
+
+    :   <source>$(rtos_mem_mang_dir)/heap_4.c   
+        <include>$(rtos_inc_dir)
+        <include>$(rtos_gcc_dir)/ARM_CM4F
+        <use>/STM32F4//F4_TARGET_MCU
+        <use>/PRJ//FreeRTOS_CFG
+    ;
+
+alias DEVICE_TARGET_PUB : : <ThorFamily>STM32F4 :
+    :   <include>$(rtos_gcc_dir)/ARM_CM4F
+    ;
+
+# ------------------------------------------
+# STM32F7 Port
+# ------------------------------------------
+lib _DEVICE_TARGET
+    :   $(rtos_gcc_dir)/ARM_CM7/r0p1/port.c
+        /STM32F7//F7_TARGET_MCU             # Compiler/linker flags
+        /PRJ//FreeRTOS_CFG                  # FreeRTOSConfig.h
+
+    :   <FreeRTOS>enabled   
+        <ThorFamily>STM32F7
+        <toolset>gcc
+        <include>$(rtos_inc_dir)
+        <include>$(rtos_gcc_dir)/ARM_CM7/r0p1 
+
+    :   <link>static
+
+    :   <source>$(rtos_mem_mang_dir)/heap_4.c
+        <include>$(rtos_inc_dir)
+        <include>$(rtos_gcc_dir)/ARM_CM7/r0p1
+        <use>/STM32F7//F7_TARGET_MCU
+        <use>/PRJ//FreeRTOS_CFG 
+    ;
+
+alias DEVICE_TARGET_PUB : : <ThorFamily>STM32F7 :
+    :   <include>$(rtos_gcc_dir)/ARM_CM7/r0p1
+    ;
+
+explicit _DEVICE_TARGET ;
+explicit DEVICE_TARGET_PUB ;
+
+explicit_alias DEVICE_TARGET : _DEVICE_TARGET : : <link>static ;
+
+# Everything needed to build FreeRTOS
+lib CORE
+    :   $(rtos_src)
+        _DEVICE_TARGET
+
+    :   <FreeRTOS>enabled   
+        <include>$(rtos_inc_dir)
+
+    :   <link>static
+
+    :   <use>PUB
+        <use>DEVICE_TARGET
+    ;
+
+explicit CORE ;
+
+explicit_alias PUB : : : 
+    :   <include>$(rtos_inc_dir)    # Standard FreeRTOS includes
+        <use>DEVICE_TARGET_PUB      # Device port specific includes 
+    ;
