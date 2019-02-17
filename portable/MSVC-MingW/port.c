@@ -509,8 +509,8 @@ uint32_t ulErrorCode;
 
 void vPortEndScheduler( void )
 {
-	/* This function IS NOT TESTED! */
-	TerminateProcess( GetCurrentProcess(), 0 );
+  /* Removed to allow stopping and restarting the scheduler in Windows */
+	//TerminateProcess( GetCurrentProcess(), 0 );
 }
 /*-----------------------------------------------------------*/
 
