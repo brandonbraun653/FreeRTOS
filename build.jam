@@ -62,42 +62,62 @@ project FreeRTOS : usage-requirements <include>$(rtos_inc_dir) ;
 # ------------------------------------------
 lib HEAP
     :   $(rtos_mem_mang_dir)/heap_1.c
+
     :   <FreeRTOS>enabled
-        <FreeRTOSMem>heap4
+        <FreeRTOSMem>heap1
         <link>static
         <include>$(rtos_inc_dir) 
+        <use>DEVICE_TARGET_PUB
+        <use>/PRJ//FreeRTOS_CFG
+        <use>/PRJ//TARGET_OPTIONS       # Compiler flags and settings
     ;
 
 lib HEAP
     :   $(rtos_mem_mang_dir)/heap_2.c
+
     :   <FreeRTOS>enabled
-        <FreeRTOSMem>heap4
+        <FreeRTOSMem>heap2
         <link>static
         <include>$(rtos_inc_dir) 
+        <use>DEVICE_TARGET_PUB
+        <use>/PRJ//FreeRTOS_CFG
+        <use>/PRJ//TARGET_OPTIONS       # Compiler flags and settings
     ;
 
 lib HEAP
     :   $(rtos_mem_mang_dir)/heap_3.c
+
     :   <FreeRTOS>enabled
-        <FreeRTOSMem>heap4
+        <FreeRTOSMem>heap3
         <link>static
         <include>$(rtos_inc_dir) 
+        <use>DEVICE_TARGET_PUB
+        <use>/PRJ//FreeRTOS_CFG
+        <use>/PRJ//TARGET_OPTIONS       # Compiler flags and settings
     ;
 
 lib HEAP
     :   $(rtos_mem_mang_dir)/heap_4.c
+
     :   <FreeRTOS>enabled
         <FreeRTOSMem>heap4
         <link>static
         <include>$(rtos_inc_dir) 
+        <use>DEVICE_TARGET_PUB
+        <use>/PRJ//FreeRTOS_CFG
+        <use>/PRJ//TARGET_OPTIONS       # Compiler flags and settings
     ;
 
 lib HEAP
     :   $(rtos_mem_mang_dir)/heap_5.c
+
     :   <FreeRTOS>enabled
-        <FreeRTOSMem>heap4
+        <FreeRTOSMem>heap5
         <link>static
-        <include>$(rtos_inc_dir) 
+        <include>$(rtos_inc_dir)
+        <use>DEVICE_TARGET_PUB
+        <use>/PRJ//FreeRTOS_CFG
+        <use>/PRJ//TARGET_OPTIONS       # Compiler flags and settings
     ;
 
 explicit HEAP ;

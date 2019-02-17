@@ -764,13 +764,3 @@ static void vPortEnableVFP( void )
 	
 
 #endif /* configASSERT_DEFINED */
-
-void vApplicationStackOverflowHook(TaskHandle_t xTask, char *pcTaskName)
-{
-	for (;;){}
-}
-
-void vApplicationMallocFailedHook( void )
-{
-	for(;;){}
-}
