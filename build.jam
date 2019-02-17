@@ -1,12 +1,20 @@
 import feature ;
 
+feature.feature FreeRTOSMem
+    :   unknown
+        heap1
+        heap2
+        heap3
+        heap4 
+        heap5
+    :   propagated optional
+    ;
+
 rule explicit_alias ( name : sources * : requirements * : default-build * : usage-requirements * )
     {
     alias $(name) : $(sources) : $(requirements) : $(default-build) : $(usage-requirements) ;
     explicit $(name) ;
     }
-
-
 
 # ------------------------------------------
 # Build Target Specific Options 
@@ -16,7 +24,6 @@ local dbg_cflags = -ggdb -Og ;
 
 local rel_defs = NDEBUG ;
 local rel_cflags = -O3 ;
-
 
 # ------------------------------------------
 # CFlags generic enough to not be processor specific.
@@ -39,7 +46,6 @@ local rtos_inc_dir = include ;
 local rtos_gcc_dir = portable/GCC ;
 local rtos_mem_mang_dir = portable/MemMang ;
 
-
 # ------------------------------------------
 # Source Files
 # ------------------------------------------
@@ -52,10 +58,55 @@ local rtos_src = $(rtos_root_src) ;
 project FreeRTOS : usage-requirements <include>$(rtos_inc_dir) ;
 
 # ------------------------------------------
+# Heap Selection Targets
+# ------------------------------------------
+lib HEAP
+    :   $(rtos_mem_mang_dir)/heap_1.c
+    :   <FreeRTOS>enabled
+        <FreeRTOSMem>heap4
+        <link>static
+        <include>$(rtos_inc_dir) 
+    ;
+
+lib HEAP
+    :   $(rtos_mem_mang_dir)/heap_2.c
+    :   <FreeRTOS>enabled
+        <FreeRTOSMem>heap4
+        <link>static
+        <include>$(rtos_inc_dir) 
+    ;
+
+lib HEAP
+    :   $(rtos_mem_mang_dir)/heap_3.c
+    :   <FreeRTOS>enabled
+        <FreeRTOSMem>heap4
+        <link>static
+        <include>$(rtos_inc_dir) 
+    ;
+
+lib HEAP
+    :   $(rtos_mem_mang_dir)/heap_4.c
+    :   <FreeRTOS>enabled
+        <FreeRTOSMem>heap4
+        <link>static
+        <include>$(rtos_inc_dir) 
+    ;
+
+lib HEAP
+    :   $(rtos_mem_mang_dir)/heap_5.c
+    :   <FreeRTOS>enabled
+        <FreeRTOSMem>heap4
+        <link>static
+        <include>$(rtos_inc_dir) 
+    ;
+
+explicit HEAP ;
+# ------------------------------------------
 # STM32F4 Port
 # ------------------------------------------
-lib _DEVICE_TARGET
+lib DEVICE_TARGET
     :   $(rtos_gcc_dir)/ARM_CM4F/port.c
+        HEAP
         /STM32F4//F4_TARGET_MCU             # Compiler/linker flags
         /PRJ//FreeRTOS_CFG                  # FreeRTOSConfig.h
 
@@ -64,13 +115,8 @@ lib _DEVICE_TARGET
         <toolset>gcc
         <include>$(rtos_inc_dir)
         <include>$(rtos_gcc_dir)/ARM_CM4F
-
-    :   <link>static
-
-    :   <source>$(rtos_mem_mang_dir)/heap_4.c   
-        <include>$(rtos_inc_dir)
-        <include>$(rtos_gcc_dir)/ARM_CM4F
-        <use>/STM32F4//F4_TARGET_MCU
+    :
+    :   <include>$(rtos_gcc_dir)/ARM_CM4F
         <use>/PRJ//FreeRTOS_CFG
     ;
 
@@ -81,8 +127,9 @@ alias DEVICE_TARGET_PUB : : <ThorFamily>STM32F4 :
 # ------------------------------------------
 # STM32F7 Port
 # ------------------------------------------
-lib _DEVICE_TARGET
+lib DEVICE_TARGET
     :   $(rtos_gcc_dir)/ARM_CM7/r0p1/port.c
+        HEAP
         /STM32F7//F7_TARGET_MCU             # Compiler/linker flags
         /PRJ//FreeRTOS_CFG                  # FreeRTOSConfig.h
 
@@ -91,13 +138,8 @@ lib _DEVICE_TARGET
         <toolset>gcc
         <include>$(rtos_inc_dir)
         <include>$(rtos_gcc_dir)/ARM_CM7/r0p1 
-
-    :   <link>static
-
-    :   <source>$(rtos_mem_mang_dir)/heap_4.c
-        <include>$(rtos_inc_dir)
-        <include>$(rtos_gcc_dir)/ARM_CM7/r0p1
-        <use>/STM32F7//F7_TARGET_MCU
+    : 
+    :   <include>$(rtos_gcc_dir)/ARM_CM7/r0p1
         <use>/PRJ//FreeRTOS_CFG 
     ;
 
@@ -105,28 +147,33 @@ alias DEVICE_TARGET_PUB : : <ThorFamily>STM32F7 :
     :   <include>$(rtos_gcc_dir)/ARM_CM7/r0p1
     ;
 
-explicit _DEVICE_TARGET ;
+explicit DEVICE_TARGET ;
 explicit DEVICE_TARGET_PUB ;
 
-explicit_alias DEVICE_TARGET : _DEVICE_TARGET : : <link>static ;
+# ------------------------------------------
+# FreeRTOS Library Components:
+#   These are intented to be consumed by the user
+# ------------------------------------------
+explicit_alias PUB : : : 
+    :   <include>$(rtos_inc_dir)    # Standard FreeRTOS includes
+        <use>DEVICE_TARGET_PUB      # Device port specific includes 
+    ;
 
-# Everything needed to build FreeRTOS
 lib CORE
     :   $(rtos_src)
-        _DEVICE_TARGET
+        DEVICE_TARGET
 
-    :   <FreeRTOS>enabled   
+    :   <FreeRTOS>enabled
+        <link>static
         <include>$(rtos_inc_dir)
-
-    :   <link>static
-
+    :   
     :   <use>PUB
         <use>DEVICE_TARGET
     ;
 
 explicit CORE ;
 
-explicit_alias PUB : : : 
-    :   <include>$(rtos_inc_dir)    # Standard FreeRTOS includes
-        <use>DEVICE_TARGET_PUB      # Device port specific includes 
-    ;
+explicit_alias FREERTOS_CORE : CORE : : : <use>PUB ;
+explicit_alias FREERTOS_DEVICE : DEVICE_TARGET : : : <use>PUB ;
+
+
