@@ -1,5 +1,7 @@
 import feature ;
 
+feature.feature FreeRTOS : disabled enabled : optional propagated ;
+
 feature.feature FreeRTOSMem
     :   unknown
         heap1
