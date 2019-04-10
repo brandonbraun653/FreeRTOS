@@ -1,7 +1,16 @@
 import feature ;
 
+# ------------------------------------------
+# If you are updating the feature list here, please also update the associated 
+# feature jamfile in this repo: https://github.com/brandonbraun653/CommonTools
+#
+# Otherwise external project bjams that need these definitions won't get updated.
+# ------------------------------------------
+
+# Disabled must be the first option
 feature.feature FreeRTOS : disabled enabled : optional propagated ;
 
+# Unknown must be the first option
 feature.feature FreeRTOSMem
     :   unknown
         heap1
@@ -9,6 +18,15 @@ feature.feature FreeRTOSMem
         heap3
         heap4 
         heap5
+    :   propagated optional
+    ;
+
+# Unknown must be the first option
+feature.feature FreeRTOSPort
+    :   unknown
+        CortexM
+        Windows
+        Posix
     :   propagated optional
     ;
 
@@ -46,6 +64,7 @@ local requirements_cflags =
 # ------------------------------------------
 local rtos_inc_dir = include ;
 local rtos_gcc_dir = portable/GCC ;
+local rtos_msvc_dir = portable/MSVC-MingW ;
 local rtos_mem_mang_dir = portable/MemMang ;
 
 # ------------------------------------------
@@ -62,6 +81,18 @@ project FreeRTOS : usage-requirements <include>$(rtos_inc_dir) ;
 # ------------------------------------------
 # Heap Selection Targets
 # ------------------------------------------
+# Default heap when none is specified
+lib HEAP
+    :   $(rtos_mem_mang_dir)/heap_4.c
+
+    :   <FreeRTOS>enabled
+        <link>static
+        <include>$(rtos_inc_dir) 
+        <use>DEVICE_TARGET_PUB
+        <use>/PRJ//FreeRTOS_CFG
+        <use>/PRJ//TARGET_OPTIONS
+    ;
+
 lib HEAP
     :   $(rtos_mem_mang_dir)/heap_1.c
 
@@ -123,6 +154,7 @@ lib HEAP
     ;
 
 explicit HEAP ;
+
 # ------------------------------------------
 # STM32F4 Port
 # ------------------------------------------
@@ -133,6 +165,7 @@ lib DEVICE_TARGET
         /PRJ//FreeRTOS_CFG                  # FreeRTOSConfig.h
 
     :   <FreeRTOS>enabled   
+        <FreeRTOSPort>CortexM
         <ThorFamily>STM32F4
         <toolset>gcc
         <include>$(rtos_inc_dir)
@@ -155,7 +188,8 @@ lib DEVICE_TARGET
         /STM32F7//F7_TARGET_MCU             # Compiler/linker flags
         /PRJ//FreeRTOS_CFG                  # FreeRTOSConfig.h
 
-    :   <FreeRTOS>enabled   
+    :   <FreeRTOS>enabled    
+        <FreeRTOSPort>CortexM  
         <ThorFamily>STM32F7
         <toolset>gcc
         <include>$(rtos_inc_dir)
@@ -167,6 +201,51 @@ lib DEVICE_TARGET
 
 alias DEVICE_TARGET_PUB : : <ThorFamily>STM32F7 :
     :   <include>$(rtos_gcc_dir)/ARM_CM7/r0p1
+    ;
+
+# ------------------------------------------
+# Windows Simulator Port
+# Toolset doesn't matter as it can be built with GCC or MSVC
+# ------------------------------------------
+lib DEVICE_TARGET
+    :   $(rtos_msvc_dir)/port.c
+        HEAP
+    
+    :   <FreeRTOS>enabled
+        <FreeRTOSPort>Windows
+        <include>$(rtos_inc_dir)
+        <include>$(rtos_msvc_dir)
+
+        <use>/PRJ//FreeRTOS_CFG
+    : 
+    :   <include>$(rtos_msvc_dir)
+        <use>/PRJ//FreeRTOS_CFG 
+    ;
+
+alias DEVICE_TARGET_PUB : : <FreeRTOSPort>Windows :
+    :   <include>$(rtos_msvc_dir)
+    ;
+
+# ------------------------------------------
+# Posix Simulator Port
+# ------------------------------------------
+lib DEVICE_TARGET
+    :   $(rtos_gcc_dir)/Posix/port.c
+        HEAP
+        /PRJ//FreeRTOS_CFG                  # FreeRTOSConfig.h
+
+    :   <FreeRTOS>enabled   
+        <FreeRTOSPort>Posix
+        <toolset>gcc
+        <include>$(rtos_inc_dir)
+        <include>$(rtos_gcc_dir)/Posix
+    :
+    :   <include>$(rtos_gcc_dir)/Posix
+        <use>/PRJ//FreeRTOS_CFG
+    ;
+
+alias DEVICE_TARGET_PUB : : <FreeRTOSPort>Posix :
+    :   <include>$(rtos_gcc_dir)/Posix
     ;
 
 explicit DEVICE_TARGET ;
