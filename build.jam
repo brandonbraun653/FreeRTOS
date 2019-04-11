@@ -81,18 +81,6 @@ project FreeRTOS : usage-requirements <include>$(rtos_inc_dir) ;
 # ------------------------------------------
 # Heap Selection Targets
 # ------------------------------------------
-# Default heap when none is specified
-lib HEAP
-    :   $(rtos_mem_mang_dir)/heap_4.c
-
-    :   <FreeRTOS>enabled
-        <link>static
-        <include>$(rtos_inc_dir) 
-        <use>DEVICE_TARGET_PUB
-        <use>/PRJ//FreeRTOS_CFG
-        <use>/PRJ//TARGET_OPTIONS
-    ;
-
 lib HEAP
     :   $(rtos_mem_mang_dir)/heap_1.c
 
