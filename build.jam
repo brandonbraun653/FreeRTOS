@@ -212,6 +212,8 @@ lib DEVICE_TARGET
     :   <FreeRTOS>enabled-Posix
         <include>$(rtos_inc_dir)
         <include>$(rtos_gcc_dir)/Posix
+        <include>/usr/include
+        <include>/usr/include/x86_64-linux-gnu
     :
     :   <include>$(rtos_gcc_dir)/Posix
         <use>/PRJ//FreeRTOS_CFG
@@ -249,6 +251,7 @@ lib CORE
         <include>$(rtos_inc_dir)
 
         <use>/PRJ//FreeRTOS_CFG
+        <use>DEVICE_TARGET_PUB
     :   
     :   <use>PUB
         <use>DEVICE_TARGET

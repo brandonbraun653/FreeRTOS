@@ -245,7 +245,7 @@ portLONG lIndex;
 	vPortFree( (void *)pxThreads );
 
 	/* Should not get here! */
-	return 0;
+	return xResult;
 }
 /*-----------------------------------------------------------*/
 
@@ -409,7 +409,7 @@ pthread_t xTaskToResume;
 
 			xTaskToSuspend = prvGetThreadHandle( xTaskGetCurrentTaskHandle() );
 			/* Tick Increment. */
-			vTaskIncrementTick();
+			xTaskIncrementTick();
 
 			/* Select Next Task. */
 #if ( configUSE_PREEMPTION == 1 )
