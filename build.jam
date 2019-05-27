@@ -1,4 +1,14 @@
 import lib/CommonTools/boost-build/features/freertos ;
+import lib/CommonTools/boost-build/features/thor ;
+
+# ====================================================
+# Local Rules 
+# ====================================================
+local rule explicit_alias ( name : sources * : requirements * : default-build * : usage-requirements * )
+    {
+    alias $(name) : $(sources) : $(requirements) : $(default-build) : $(usage-requirements) ;
+    explicit $(name) ;
+    }
 
 # ====================================================
 # Local Resources 
@@ -136,7 +146,7 @@ lib DEVICE_TARGET
         /PRJ//FreeRTOS_CFG                  # FreeRTOSConfig.h
 
     :   <FreeRTOS>enabled-CortexM
-        <ThorFamily>STM32F4
+        <Thor>enabled-F4
         <include>$(rtos_inc_dir)
         <include>$(rtos_gcc_dir)/ARM_CM4F
     :
@@ -144,7 +154,7 @@ lib DEVICE_TARGET
         <use>/PRJ//FreeRTOS_CFG
     ;
 
-alias DEVICE_TARGET_PUB : : <ThorFamily>STM32F4 :
+alias DEVICE_TARGET_PUB : : <Thor>enabled-F4 :
     :   <include>$(rtos_gcc_dir)/ARM_CM4F
     ;
 
@@ -158,7 +168,7 @@ lib DEVICE_TARGET
         /PRJ//FreeRTOS_CFG                  # FreeRTOSConfig.h
 
     :   <FreeRTOS>enabled-CortexM  
-        <ThorFamily>STM32F7
+        <Thor>enabled-F7
         <include>$(rtos_inc_dir)
         <include>$(rtos_gcc_dir)/ARM_CM7/r0p1 
     : 
@@ -166,7 +176,7 @@ lib DEVICE_TARGET
         <use>/PRJ//FreeRTOS_CFG 
     ;
 
-alias DEVICE_TARGET_PUB : : <ThorFamily>STM32F7 :
+alias DEVICE_TARGET_PUB : : <Thor>enabled-F7 :
     :   <include>$(rtos_gcc_dir)/ARM_CM7/r0p1
     ;
 
