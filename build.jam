@@ -1,41 +1,8 @@
-import feature ;
+import lib/CommonTools/boost-build/features/freertos ;
 
-# ------------------------------------------
-# If you are updating the feature list here, please also update the associated 
-# feature jamfile in this repo: https://github.com/brandonbraun653/CommonTools
-#
-# Otherwise external project bjams that need these definitions won't get updated.
-# ------------------------------------------
-
-# Disabled must be the first option
-feature.feature FreeRTOS : disabled enabled : optional propagated ;
-
-# Unknown must be the first option
-feature.feature FreeRTOSMem
-    :   unknown
-        heap1
-        heap2
-        heap3
-        heap4 
-        heap5
-    :   propagated optional
-    ;
-
-# Unknown must be the first option
-feature.feature FreeRTOSPort
-    :   unknown
-        CortexM
-        Windows
-        Posix
-    :   propagated optional
-    ;
-
-rule explicit_alias ( name : sources * : requirements * : default-build * : usage-requirements * )
-    {
-    alias $(name) : $(sources) : $(requirements) : $(default-build) : $(usage-requirements) ;
-    explicit $(name) ;
-    }
-
+# ====================================================
+# Local Resources 
+# ====================================================
 # ------------------------------------------
 # Build Target Specific Options 
 # ------------------------------------------
@@ -74,18 +41,21 @@ local rtos_root_src = [ glob *.c ] ;
 local rtos_common_src = portable/Common/mpu_wrappers.c ;
 local rtos_src = $(rtos_root_src) ;
 
-# TODO: Make the MPU stuff a feature to be enabled for compilation
-
+# ====================================================
+# Project Definition
+# ====================================================
 project FreeRTOS : usage-requirements <include>$(rtos_inc_dir) ;
 
+# ====================================================
+# Heap selection targets for the desired memory management strategy
+# ====================================================
 # ------------------------------------------
-# Heap Selection Targets
+# Simplest type. Does not permit memory to be freed.
 # ------------------------------------------
 lib HEAP
     :   $(rtos_mem_mang_dir)/heap_1.c
 
-    :   <FreeRTOS>enabled
-        <FreeRTOSMem>heap1
+    :   <FreeRTOS>enabled-heap1
         <link>static
         <include>$(rtos_inc_dir) 
         <use>DEVICE_TARGET_PUB
@@ -93,11 +63,13 @@ lib HEAP
         <use>/PRJ//TARGET_OPTIONS       # Compiler flags and settings
     ;
 
+# ------------------------------------------
+# Permits memory to be freed, but does not coalescence adjacent free blocks.
+# ------------------------------------------
 lib HEAP
     :   $(rtos_mem_mang_dir)/heap_2.c
 
-    :   <FreeRTOS>enabled
-        <FreeRTOSMem>heap2
+    :   <FreeRTOS>enabled-heap2
         <link>static
         <include>$(rtos_inc_dir) 
         <use>DEVICE_TARGET_PUB
@@ -105,11 +77,13 @@ lib HEAP
         <use>/PRJ//TARGET_OPTIONS       # Compiler flags and settings
     ;
 
+# ------------------------------------------
+# Simply wraps the standard malloc() and free() for thread safety.
+# ------------------------------------------
 lib HEAP
     :   $(rtos_mem_mang_dir)/heap_3.c
 
-    :   <FreeRTOS>enabled
-        <FreeRTOSMem>heap3
+    :   <FreeRTOS>enabled-heap3
         <link>static
         <include>$(rtos_inc_dir) 
         <use>DEVICE_TARGET_PUB
@@ -117,11 +91,14 @@ lib HEAP
         <use>/PRJ//TARGET_OPTIONS       # Compiler flags and settings
     ;
 
+# ------------------------------------------
+# Coalescences adjacent free blocks to avoid fragmentation. 
+# Includes absolute address placement option.
+# ------------------------------------------
 lib HEAP
     :   $(rtos_mem_mang_dir)/heap_4.c
 
-    :   <FreeRTOS>enabled
-        <FreeRTOSMem>heap4
+    :   <FreeRTOS>enabled-heap4
         <link>static
         <include>$(rtos_inc_dir) 
         <use>DEVICE_TARGET_PUB
@@ -129,11 +106,14 @@ lib HEAP
         <use>/PRJ//TARGET_OPTIONS       # Compiler flags and settings
     ;
 
+# ------------------------------------------
+# As per heap_4, with the ability to span the heap across 
+# multiple non-adjacent memory areas.
+# ------------------------------------------
 lib HEAP
     :   $(rtos_mem_mang_dir)/heap_5.c
 
-    :   <FreeRTOS>enabled
-        <FreeRTOSMem>heap5
+    :   <FreeRTOS>enabled-heap5
         <link>static
         <include>$(rtos_inc_dir)
         <use>DEVICE_TARGET_PUB
@@ -143,6 +123,9 @@ lib HEAP
 
 explicit HEAP ;
 
+# ====================================================
+# Port Specific Targets
+# ====================================================
 # ------------------------------------------
 # STM32F4 Port
 # ------------------------------------------
@@ -152,10 +135,8 @@ lib DEVICE_TARGET
         /STM32F4//F4_TARGET_MCU             # Compiler/linker flags
         /PRJ//FreeRTOS_CFG                  # FreeRTOSConfig.h
 
-    :   <FreeRTOS>enabled   
-        <FreeRTOSPort>CortexM
+    :   <FreeRTOS>enabled-CortexM
         <ThorFamily>STM32F4
-        <toolset>gcc
         <include>$(rtos_inc_dir)
         <include>$(rtos_gcc_dir)/ARM_CM4F
     :
@@ -176,10 +157,8 @@ lib DEVICE_TARGET
         /STM32F7//F7_TARGET_MCU             # Compiler/linker flags
         /PRJ//FreeRTOS_CFG                  # FreeRTOSConfig.h
 
-    :   <FreeRTOS>enabled    
-        <FreeRTOSPort>CortexM  
+    :   <FreeRTOS>enabled-CortexM  
         <ThorFamily>STM32F7
-        <toolset>gcc
         <include>$(rtos_inc_dir)
         <include>$(rtos_gcc_dir)/ARM_CM7/r0p1 
     : 
@@ -193,14 +172,12 @@ alias DEVICE_TARGET_PUB : : <ThorFamily>STM32F7 :
 
 # ------------------------------------------
 # Windows Simulator Port
-# Toolset doesn't matter as it can be built with GCC or MSVC
 # ------------------------------------------
 lib DEVICE_TARGET
     :   $(rtos_msvc_dir)/port.c
         HEAP
     
-    :   <FreeRTOS>enabled
-        <FreeRTOSPort>Windows
+    :   <FreeRTOS>enabled-Windows
         <include>$(rtos_inc_dir)
         <include>$(rtos_msvc_dir)
 
@@ -210,7 +187,7 @@ lib DEVICE_TARGET
         <use>/PRJ//FreeRTOS_CFG 
     ;
 
-alias DEVICE_TARGET_PUB : : <FreeRTOSPort>Windows :
+alias DEVICE_TARGET_PUB : : <FreeRTOS-port>Windows :
     :   <include>$(rtos_msvc_dir)
     ;
 
@@ -222,9 +199,7 @@ lib DEVICE_TARGET
         HEAP
         /PRJ//FreeRTOS_CFG                  # FreeRTOSConfig.h
 
-    :   <FreeRTOS>enabled   
-        <FreeRTOSPort>Posix
-        <toolset>gcc
+    :   <FreeRTOS>enabled-Posix
         <include>$(rtos_inc_dir)
         <include>$(rtos_gcc_dir)/Posix
     :
@@ -232,22 +207,29 @@ lib DEVICE_TARGET
         <use>/PRJ//FreeRTOS_CFG
     ;
 
-alias DEVICE_TARGET_PUB : : <FreeRTOSPort>Posix :
+alias DEVICE_TARGET_PUB : : <FreeRTOS-port>Posix :
     :   <include>$(rtos_gcc_dir)/Posix
     ;
 
 explicit DEVICE_TARGET ;
 explicit DEVICE_TARGET_PUB ;
 
+# ====================================================
+# FreeRTOS Library Components
+# ====================================================
+
 # ------------------------------------------
-# FreeRTOS Library Components:
-#   These are intented to be consumed by the user
+# Allows a target to import common headers. 
+# Automatically derives the port specific headers.
 # ------------------------------------------
 explicit_alias PUB : : : 
     :   <include>$(rtos_inc_dir)    # Standard FreeRTOS includes
         <use>DEVICE_TARGET_PUB      # Device port specific includes 
     ;
 
+# ------------------------------------------
+# Builds the entire FreeRTOS Core + Port source
+# ------------------------------------------
 lib CORE
     :   $(rtos_src)
         DEVICE_TARGET
@@ -255,6 +237,8 @@ lib CORE
     :   <FreeRTOS>enabled
         <link>static
         <include>$(rtos_inc_dir)
+
+        <use>/PRJ//FreeRTOS_CFG
     :   
     :   <use>PUB
         <use>DEVICE_TARGET
@@ -262,7 +246,8 @@ lib CORE
 
 explicit CORE ;
 
+# ------------------------------------------
+# Export aliases for testing builds on the command line
+# ------------------------------------------
 explicit_alias FREERTOS_CORE : CORE : : : <use>PUB ;
 explicit_alias FREERTOS_DEVICE : DEVICE_TARGET : : : <use>PUB ;
-
-
