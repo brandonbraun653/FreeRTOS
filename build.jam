@@ -69,7 +69,7 @@ lib HEAP
         <link>static
         <include>$(rtos_inc_dir) 
         <use>DEVICE_TARGET_PUB
-        <use>/PRJ//FreeRTOS_CFG
+        <use>/PRJ//FREERTOS_CFG
         <use>/PRJ//TARGET_OPTIONS       # Compiler flags and settings
     ;
 
@@ -83,7 +83,7 @@ lib HEAP
         <link>static
         <include>$(rtos_inc_dir) 
         <use>DEVICE_TARGET_PUB
-        <use>/PRJ//FreeRTOS_CFG
+        <use>/PRJ//FREERTOS_CFG
         <use>/PRJ//TARGET_OPTIONS       # Compiler flags and settings
     ;
 
@@ -97,7 +97,7 @@ lib HEAP
         <link>static
         <include>$(rtos_inc_dir) 
         <use>DEVICE_TARGET_PUB
-        <use>/PRJ//FreeRTOS_CFG
+        <use>/PRJ//FREERTOS_CFG
         <use>/PRJ//TARGET_OPTIONS       # Compiler flags and settings
     ;
 
@@ -112,7 +112,7 @@ lib HEAP
         <link>static
         <include>$(rtos_inc_dir) 
         <use>DEVICE_TARGET_PUB
-        <use>/PRJ//FreeRTOS_CFG
+        <use>/PRJ//FREERTOS_CFG
         <use>/PRJ//TARGET_OPTIONS       # Compiler flags and settings
     ;
 
@@ -127,7 +127,7 @@ lib HEAP
         <link>static
         <include>$(rtos_inc_dir)
         <use>DEVICE_TARGET_PUB
-        <use>/PRJ//FreeRTOS_CFG
+        <use>/PRJ//FREERTOS_CFG
         <use>/PRJ//TARGET_OPTIONS       # Compiler flags and settings
     ;
 
@@ -143,7 +143,7 @@ lib DEVICE_TARGET
     :   $(rtos_gcc_dir)/ARM_CM4F/port.c
         HEAP
         /STM32F4//F4_TARGET_MCU             # Compiler/linker flags
-        /PRJ//FreeRTOS_CFG                  # FreeRTOSConfig.h
+        /PRJ//FREERTOS_CFG                  # FreeRTOSConfig.h
 
     :   <FreeRTOS>enabled-CortexM
         <Thor>enabled-F4
@@ -151,7 +151,7 @@ lib DEVICE_TARGET
         <include>$(rtos_gcc_dir)/ARM_CM4F
     :
     :   <include>$(rtos_gcc_dir)/ARM_CM4F
-        <use>/PRJ//FreeRTOS_CFG
+        <use>/PRJ//FREERTOS_CFG
     ;
 
 alias DEVICE_TARGET_PUB : : <Thor>enabled-F4 :
@@ -165,7 +165,7 @@ lib DEVICE_TARGET
     :   $(rtos_gcc_dir)/ARM_CM7/r0p1/port.c
         HEAP
         /STM32F7//F7_TARGET_MCU             # Compiler/linker flags
-        /PRJ//FreeRTOS_CFG                  # FreeRTOSConfig.h
+        /PRJ//FREERTOS_CFG                  # FreeRTOSConfig.h
 
     :   <FreeRTOS>enabled-CortexM  
         <Thor>enabled-F7
@@ -173,7 +173,7 @@ lib DEVICE_TARGET
         <include>$(rtos_gcc_dir)/ARM_CM7/r0p1 
     : 
     :   <include>$(rtos_gcc_dir)/ARM_CM7/r0p1
-        <use>/PRJ//FreeRTOS_CFG 
+        <use>/PRJ//FREERTOS_CFG 
     ;
 
 alias DEVICE_TARGET_PUB : : <Thor>enabled-F7 :
@@ -191,10 +191,10 @@ lib DEVICE_TARGET
         <include>$(rtos_inc_dir)
         <include>$(rtos_msvc_dir)
 
-        <use>/PRJ//FreeRTOS_CFG
+        <use>/PRJ//FREERTOS_CFG
     : 
     :   <include>$(rtos_msvc_dir)
-        <use>/PRJ//FreeRTOS_CFG 
+        <use>/PRJ//FREERTOS_CFG 
     ;
 
 alias DEVICE_TARGET_PUB : : <FreeRTOS-port>Windows :
@@ -207,7 +207,7 @@ alias DEVICE_TARGET_PUB : : <FreeRTOS-port>Windows :
 lib DEVICE_TARGET
     :   $(rtos_gcc_dir)/Posix/port.c
         HEAP
-        /PRJ//FreeRTOS_CFG                  # FreeRTOSConfig.h
+        /PRJ//FREERTOS_CFG                  # FreeRTOSConfig.h
 
     :   <FreeRTOS>enabled-Posix
         <include>$(rtos_inc_dir)
@@ -216,7 +216,7 @@ lib DEVICE_TARGET
         <include>/usr/include/x86_64-linux-gnu
     :
     :   <include>$(rtos_gcc_dir)/Posix
-        <use>/PRJ//FreeRTOS_CFG
+        <use>/PRJ//FREERTOS_CFG
     ;
 
 alias DEVICE_TARGET_PUB : : <FreeRTOS-port>Posix :
@@ -250,7 +250,7 @@ lib CORE
         <link>static
         <include>$(rtos_inc_dir)
 
-        <use>/PRJ//FreeRTOS_CFG
+        <use>/PRJ//FREERTOS_CFG
         <use>DEVICE_TARGET_PUB
     :   
     :   <use>PUB
