@@ -1,5 +1,6 @@
 import lib/CommonTools/boost-build/features/freertos ;
 import lib/CommonTools/boost-build/features/thor ;
+import lib/CommonTools/boost-build/features/chimera ;
 
 # ====================================================
 # Local Rules 
