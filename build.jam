@@ -142,20 +142,23 @@ explicit HEAP ;
 # ------------------------------------------
 lib DEVICE_TARGET
     :   $(rtos_gcc_dir)/ARM_CM4F/port.c
-        HEAP
-        /STM32F4//F4_TARGET_MCU             # Compiler/linker flags
-        /PRJ//FREERTOS_CFG                  # FreeRTOSConfig.h
 
     :   <FreeRTOS>enabled-CortexM
         <Thor>enabled-F4
         <include>$(rtos_inc_dir)
         <include>$(rtos_gcc_dir)/ARM_CM4F
+        <use>/PRJ//FREERTOS_CFG
+
+        <library>HEAP
     :
     :   <include>$(rtos_gcc_dir)/ARM_CM4F
         <use>/PRJ//FREERTOS_CFG
     ;
 
-alias DEVICE_TARGET_PUB : : <Thor>enabled-F4 :
+alias DEVICE_TARGET_PUB 
+    : 
+    :   <Thor>enabled-F4 
+    :
     :   <include>$(rtos_gcc_dir)/ARM_CM4F
     ;
 
@@ -164,20 +167,23 @@ alias DEVICE_TARGET_PUB : : <Thor>enabled-F4 :
 # ------------------------------------------
 lib DEVICE_TARGET
     :   $(rtos_gcc_dir)/ARM_CM7/r0p1/port.c
-        HEAP
-        /STM32F7//F7_TARGET_MCU             # Compiler/linker flags
-        /PRJ//FREERTOS_CFG                  # FreeRTOSConfig.h
 
     :   <FreeRTOS>enabled-CortexM  
         <Thor>enabled-F7
         <include>$(rtos_inc_dir)
-        <include>$(rtos_gcc_dir)/ARM_CM7/r0p1 
+        <include>$(rtos_gcc_dir)/ARM_CM7/r0p1
+        <use>/PRJ//FREERTOS_CFG
+
+        <library>HEAP
     : 
     :   <include>$(rtos_gcc_dir)/ARM_CM7/r0p1
         <use>/PRJ//FREERTOS_CFG 
     ;
 
-alias DEVICE_TARGET_PUB : : <Thor>enabled-F7 :
+alias DEVICE_TARGET_PUB 
+    : 
+    :   <Thor>enabled-F7
+    :
     :   <include>$(rtos_gcc_dir)/ARM_CM7/r0p1
     ;
 
@@ -186,19 +192,23 @@ alias DEVICE_TARGET_PUB : : <Thor>enabled-F7 :
 # ------------------------------------------
 lib DEVICE_TARGET
     :   $(rtos_msvc_dir)/port.c
-        HEAP
     
     :   <FreeRTOS>enabled-Windows
         <include>$(rtos_inc_dir)
         <include>$(rtos_msvc_dir)
 
         <use>/PRJ//FREERTOS_CFG
+
+        <library>HEAP
     : 
     :   <include>$(rtos_msvc_dir)
         <use>/PRJ//FREERTOS_CFG 
     ;
 
-alias DEVICE_TARGET_PUB : : <FreeRTOS-port>Windows :
+alias DEVICE_TARGET_PUB 
+    : 
+    :   <FreeRTOS-port>Windows 
+    :
     :   <include>$(rtos_msvc_dir)
     ;
 
@@ -207,20 +217,24 @@ alias DEVICE_TARGET_PUB : : <FreeRTOS-port>Windows :
 # ------------------------------------------
 lib DEVICE_TARGET
     :   $(rtos_gcc_dir)/Posix/port.c
-        HEAP
-        /PRJ//FREERTOS_CFG                  # FreeRTOSConfig.h
 
     :   <FreeRTOS>enabled-Posix
         <include>$(rtos_inc_dir)
         <include>$(rtos_gcc_dir)/Posix
         <include>/usr/include
         <include>/usr/include/x86_64-linux-gnu
+        <use>/PRJ//FREERTOS_CFG
+
+        <library>HEAP
     :
     :   <include>$(rtos_gcc_dir)/Posix
         <use>/PRJ//FREERTOS_CFG
     ;
 
-alias DEVICE_TARGET_PUB : : <FreeRTOS-port>Posix :
+alias DEVICE_TARGET_PUB 
+    : 
+    :   <FreeRTOS-port>Posix 
+    :
     :   <include>$(rtos_gcc_dir)/Posix
     ;
 
@@ -235,7 +249,10 @@ explicit DEVICE_TARGET_PUB ;
 # Allows a target to import common headers. 
 # Automatically derives the port specific headers.
 # ------------------------------------------
-explicit_alias PUB : : : 
+explicit_alias PUB 
+    : 
+    : 
+    : 
     :   <include>$(rtos_inc_dir)    # Standard FreeRTOS includes
         <use>DEVICE_TARGET_PUB      # Device port specific includes 
     ;
@@ -245,7 +262,6 @@ explicit_alias PUB : : :
 # ------------------------------------------
 lib CORE
     :   $(rtos_src)
-        DEVICE_TARGET
 
     :   <FreeRTOS>enabled
         <link>static
@@ -253,6 +269,8 @@ lib CORE
 
         <use>/PRJ//FREERTOS_CFG
         <use>DEVICE_TARGET_PUB
+        
+        <library>DEVICE_TARGET
     :   
     :   <use>PUB
         <use>DEVICE_TARGET
@@ -263,5 +281,5 @@ explicit CORE ;
 # ------------------------------------------
 # Export aliases for testing builds on the command line
 # ------------------------------------------
-explicit_alias FREERTOS_CORE : CORE : : : <use>PUB ;
-explicit_alias FREERTOS_DEVICE : DEVICE_TARGET : : : <use>PUB ;
+explicit_alias FREERTOS_CORE : CORE ;
+explicit_alias FREERTOS_DEVICE : DEVICE_TARGET ;
