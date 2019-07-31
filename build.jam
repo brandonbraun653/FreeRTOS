@@ -203,7 +203,7 @@ lib DEVICE_TARGET
     : 
     :   <include>$(rtos_msvc_dir)
         <use>/PRJ//FREERTOS_CFG
-        <linkflags>-lwinmm              # Required for some timer functionality
+        <toolset>gcc:<linkflags>-lwinmm              # Required for some timer functionality
     ;
 
 alias DEVICE_TARGET_PUB 
