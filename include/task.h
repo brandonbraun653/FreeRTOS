@@ -35,6 +35,7 @@
 #endif
 
 #include "list.h"
+#include "portmacro.h"
 
 #ifdef __cplusplus
 extern "C" {

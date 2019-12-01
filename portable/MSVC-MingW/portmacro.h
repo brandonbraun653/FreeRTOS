@@ -26,11 +26,21 @@
  * 1 tab == 4 spaces!
  */
 
+#include "FreeRTOSConfig.h"
+
+#if defined( FREERTOS_CFG_PORT_MSVC ) && ( FREERTOS_CFG_PORT_MSVC == 1 )
+
 #ifndef PORTMACRO_H
 #define PORTMACRO_H
 
+/* These are required to get FreeRTOS to play nicely with my other libraries */
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+
 #include <Windows.h>
 #include <WinBase.h>
+
+#include <stdint.h>
 
 /******************************************************************************
 	Defines
@@ -156,3 +166,4 @@ void vPortSetInterruptHandler( uint32_t ulInterruptNumber, uint32_t (*pvHandler)
 
 #endif
 
+#endif	/* FREERTOS_CFG_PORT_MSVC */

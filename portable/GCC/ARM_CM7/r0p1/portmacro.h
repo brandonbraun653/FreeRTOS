@@ -26,6 +26,9 @@
  * 1 tab == 4 spaces!
  */
 
+#include "FreeRTOSConfig.h"
+
+#if defined( FREERTOS_CFG_PORT_ARM_CM7_R0P1 ) && ( FREERTOS_CFG_PORT_ARM_CM7_R0P1 == 1 )
 
 #ifndef PORTMACRO_H
 #define PORTMACRO_H
@@ -245,3 +248,4 @@ portFORCE_INLINE static void vPortSetBASEPRI( uint32_t ulNewMaskValue )
 
 #endif /* PORTMACRO_H */
 
+#endif	/* FREERTOS_CFG_PORT_ARM_CM7_R0P1 */

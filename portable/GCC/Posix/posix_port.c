@@ -49,6 +49,9 @@
     http://www.OpenRTOS.com - Commercial support, development, porting,
     licensing and training services.
 */
+#include "FreeRTOSConfig.h"
+
+#if defined( FREERTOS_CFG_PORT_POSIX ) && ( FREERTOS_CFG_PORT_POSIX == 1 )
 
 /*-----------------------------------------------------------
  * Implementation of functions defined in portable.h for the Posix port.
@@ -772,3 +775,5 @@ unsigned long ulPortGetTimerValue( void )
   ( void )ulTotalTime;
 }
 /*-----------------------------------------------------------*/
+
+#endif	/* FREERTOS_CFG_PORT_POSIX */

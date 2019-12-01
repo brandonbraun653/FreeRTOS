@@ -49,6 +49,9 @@
 	licensing and training services.
 */
 
+#include "FreeRTOSConfig.h"
+
+#if defined( FREERTOS_CFG_PORT_POSIX ) && ( FREERTOS_CFG_PORT_POSIX == 1 )
 
 #ifndef PORTMACRO_H
 #define PORTMACRO_H
@@ -172,3 +175,4 @@ extern unsigned long ulPortGetTimerValue( void );
 
 #endif /* PORTMACRO_H */
 
+#endif	/* FREERTOS_CFG_PORT_POSIX */

@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{750cb687-1233-4695-9b7c-1c06b395a8fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{c1571c82-52df-4ccf-aa96-aefeb037198f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="portable">
+      <UniqueIdentifier>{c1dc94a6-49bb-482a-b97d-3fa407eb1a6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="portable\msvc">
+      <UniqueIdentifier>{788e8334-cddd-42fd-a306-92246418294c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="portable\gcc">
+      <UniqueIdentifier>{f0a6f6d7-a9ad-4013-9ce9-d96fd6e01732}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="portable\gcc\arm_cm4f">
+      <UniqueIdentifier>{98a4870b-a896-4967-95ff-1cc0bc22777c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="portable\gcc\arm_cm7">
+      <UniqueIdentifier>{97a9b7f6-3fdb-4706-9c57-bab19b12ef2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="portable\gcc\arm_cm7\r0p1">
+      <UniqueIdentifier>{4ae6acbe-60b5-4310-8dd6-2eb80d227686}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="portable\gcc\posix">
+      <UniqueIdentifier>{268cfedc-eb7a-4963-b650-a5cb255e5707}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="portable\memmang">
+      <UniqueIdentifier>{fa7a78c3-4ddc-4e02-9049-9f948f360dd3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\croutine.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\deprecated_definitions.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\event_groups.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\FreeRTOS.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\list.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\message_buffer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\mpu_prototypes.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\mpu_wrappers.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\portable.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\projdefs.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\queue.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\semphr.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\stack_macros.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\StackMacros.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\stream_buffer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\task.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\timers.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\portable\MSVC-MingW\portmacro.h">
+      <Filter>portable\msvc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\portable\GCC\ARM_CM4F\portmacro.h">
+      <Filter>portable\gcc\arm_cm4f</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\portable\GCC\ARM_CM7\r0p1\portmacro.h">
+      <Filter>portable\gcc\arm_cm7\r0p1</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\portable\GCC\Posix\portmacro.h">
+      <Filter>portable\gcc\posix</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\croutine.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\event_groups.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\list.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\queue.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\stream_buffer.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\tasks.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\timers.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\portable\MemMang\heap_1.c">
+      <Filter>portable\memmang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\portable\MemMang\heap_2.c">
+      <Filter>portable\memmang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\portable\MemMang\heap_3.c">
+      <Filter>portable\memmang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\portable\MemMang\heap_4.c">
+      <Filter>portable\memmang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\portable\MemMang\heap_5.c">
+      <Filter>portable\memmang</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\portable\MSVC-MingW\msvc_port.c">
+      <Filter>portable\msvc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\portable\GCC\ARM_CM4F\arm_cm4f_port.c">
+      <Filter>portable\gcc\arm_cm4f</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\portable\GCC\ARM_CM7\r0p1\arm_cm7_r0p1_port.c">
+      <Filter>portable\gcc\arm_cm7\r0p1</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\portable\GCC\Posix\posix_port.c">
+      <Filter>portable\gcc\posix</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Configuration.md" />
+  </ItemGroup>
+</Project>

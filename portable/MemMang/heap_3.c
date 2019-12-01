@@ -27,6 +27,10 @@
  */
 
 
+#include "FreeRTOSConfig.h"
+
+#if defined( FREERTOS_CFG_MEM_MANG_HEAP3 ) && ( FREERTOS_CFG_MEM_MANG_HEAP3 == 1 )
+
 /*
  * Implementation of pvPortMalloc() and vPortFree() that relies on the
  * compilers own malloc() and free() implementations.
@@ -95,4 +99,4 @@ void vPortFree( void *pv )
 }
 
 
-
+#endif /* FREERTOS_CFG_MEM_MANG_HEAP3 */

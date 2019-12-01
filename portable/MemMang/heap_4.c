@@ -26,6 +26,11 @@
  * 1 tab == 4 spaces!
  */
 
+
+#include "FreeRTOSConfig.h"
+
+#if defined( FREERTOS_CFG_MEM_MANG_HEAP4 ) && ( FREERTOS_CFG_MEM_MANG_HEAP4 == 1 )
+
 /*
  * A sample implementation of pvPortMalloc() and vPortFree() that combines
  * (coalescences) adjacent memory blocks as they are freed, and in so doing
@@ -435,3 +440,4 @@ uint8_t *puc;
 	}
 }
 
+#endif	/* FREERTOS_CFG_MEM_MANG_HEAP4 */

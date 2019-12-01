@@ -5,7 +5,7 @@
  * Permission is hereby granted, free of charge, to any person obtaining a copy of
  * this software and associated documentation files (the "Software"), to deal in
  * the Software without restriction, including without limitation the rights to
- * use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+ * use, copy, modify, merge, publish, distribute, sub license, and/or sell copies of
  * the Software, and to permit persons to whom the Software is furnished to do so,
  * subject to the following conditions:
  *
@@ -26,12 +26,19 @@
  * 1 tab == 4 spaces!
  */
 
+#include "FreeRTOSConfig.h"
+
+#if defined( FREERTOS_CFG_PORT_MSVC ) && ( FREERTOS_CFG_PORT_MSVC == 1 )
+
 /* Standard includes. */
 #include <stdio.h>
 
 /* Scheduler includes. */
 #include "FreeRTOS.h"
 #include "task.h"
+
+/* Windows Includes */
+#include "timeapi.h"
 
 #ifdef __GNUC__
 	#include "mmsystem.h"
@@ -103,10 +110,10 @@ by multiple threads. */
 static void *pvInterruptEventMutex = NULL;
 
 /* The critical nesting count for the currently executing task.  This is
-initialised to a non-zero value so interrupts do not become enabled during
-the initialisation phase.  As each task has its own critical nesting value
+initialized to a non-zero value so interrupts do not become enabled during
+the initialization phase.  As each task has its own critical nesting value
 ulCriticalNesting will get set to zero when the first task runs.  This
-initialisation is probably not critical in this simulated environment as the
+initialization is probably not critical in this simulated environment as the
 simulated interrupt handlers do not get created until the FreeRTOS scheduler is
 started anyway. */
 static uint32_t ulCriticalNesting = 9999UL;
@@ -620,3 +627,4 @@ int32_t lMutexNeedsReleasing;
 }
 /*-----------------------------------------------------------*/
 
+#endif	/* FREERTOS_CFG_PORT_MSVC */

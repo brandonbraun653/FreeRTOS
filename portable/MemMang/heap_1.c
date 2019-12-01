@@ -26,6 +26,10 @@
  * 1 tab == 4 spaces!
  */
 
+ 
+#include "FreeRTOSConfig.h"
+
+#if defined( FREERTOS_CFG_MEM_MANG_HEAP1 ) && ( FREERTOS_CFG_MEM_MANG_HEAP1 == 1 )
 
 /*
  * The simplest possible implementation of pvPortMalloc().  Note that this
@@ -145,4 +149,4 @@ size_t xPortGetFreeHeapSize( void )
 }
 
 
-
+#endif	/* FREERTOS_CFG_MEM_MANG_HEAP1 */

@@ -30,6 +30,10 @@
  * Implementation of functions defined in portable.h for the ARM CM4F port.
  *----------------------------------------------------------*/
 
+#include "FreeRTOSConfig.h"
+
+#if defined( FREERTOS_CFG_PORT_ARM_CM4F ) && ( FREERTOS_CFG_PORT_ARM_CM4F == 1 )
+
 /* Scheduler includes. */
 #include "FreeRTOS.h"
 #include "task.h"
@@ -59,6 +63,12 @@
 #define portNVIC_SYSTICK_COUNT_FLAG_BIT		( 1UL << 16UL )
 #define portNVIC_PENDSVCLEAR_BIT 			( 1UL << 27UL )
 #define portNVIC_PEND_SYSTICK_CLEAR_BIT		( 1UL << 25UL )
+
+/* Constants used to detect a Cortex-M7 r0p1 core, which should use the ARM_CM7
+r0p1 port. */
+#define portCPUID							( * ( ( volatile uint32_t * ) 0xE000ed00 ) )
+#define portCORTEX_M7_r0p1_ID				( 0x410FC271UL )
+#define portCORTEX_M7_r0p0_ID				( 0x410FC270UL )
 
 #define portNVIC_PENDSV_PRI					( ( ( uint32_t ) configKERNEL_INTERRUPT_PRIORITY ) << 16UL )
 #define portNVIC_SYSTICK_PRI				( ( ( uint32_t ) configKERNEL_INTERRUPT_PRIORITY ) << 24UL )
@@ -285,6 +295,12 @@ BaseType_t xPortStartScheduler( void )
 	See http://www.FreeRTOS.org/RTOS-Cortex-M3-M4.html */
 	configASSERT( configMAX_SYSCALL_INTERRUPT_PRIORITY );
 
+	/* This port can be used on all revisions of the Cortex-M7 core other than
+	the r0p1 parts.  r0p1 parts should use the port from the
+	/source/portable/GCC/ARM_CM7/r0p1 directory. */
+	configASSERT( portCPUID != portCORTEX_M7_r0p1_ID );
+	configASSERT( portCPUID != portCORTEX_M7_r0p0_ID );
+
 	#if( configASSERT_DEFINED == 1 )
 	{
 		volatile uint32_t ulOriginalPriority;
@@ -438,11 +454,9 @@ void xPortPendSVHandler( void )
 	"										\n"
 	"	stmdb sp!, {r0, r3}					\n"
 	"	mov r0, %0 							\n"
-	"	cpsid i								\n" /* Errata workaround. */
 	"	msr basepri, r0						\n"
 	"	dsb									\n"
 	"	isb									\n"
-	"	cpsie i								\n" /* Errata workaround. */
 	"	bl vTaskSwitchContext				\n"
 	"	mov r0, #0							\n"
 	"	msr basepri, r0						\n"
@@ -761,6 +775,6 @@ static void vPortEnableVFP( void )
 		configASSERT( ( portAIRCR_REG & portPRIORITY_GROUP_MASK ) <= ulMaxPRIGROUPValue );
 	}
 
-	
-
 #endif /* configASSERT_DEFINED */
+
+#endif	/* FREERTOS_CFG_PORT_ARM_CM4F */
