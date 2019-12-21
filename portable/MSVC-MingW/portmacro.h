@@ -34,8 +34,13 @@
 #define PORTMACRO_H
 
 /* These are required to get FreeRTOS to play nicely with my other libraries */
+#ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
+#endif 
+
+#ifndef NOMINMAX
 #define NOMINMAX
+#endif
 
 #include <Windows.h>
 #include <WinBase.h>
