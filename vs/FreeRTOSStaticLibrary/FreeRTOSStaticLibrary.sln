@@ -7,20 +7,41 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FreeRTOSStaticLibrary", "Fr
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|STM32 = Debug|STM32
+		Debug|STM32F446RE = Debug|STM32F446RE
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release|STM32 = Release|STM32
+		Release|STM32F446RE = Release|STM32F446RE
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
+		Standalone|STM32 = Standalone|STM32
+		Standalone|STM32F446RE = Standalone|STM32F446RE
+		Standalone|x64 = Standalone|x64
+		Standalone|x86 = Standalone|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84551AF0-447D-4ED5-8DDA-3933C47A95F8}.Debug|STM32.ActiveCfg = Debug|Win32
+		{84551AF0-447D-4ED5-8DDA-3933C47A95F8}.Debug|STM32F446RE.ActiveCfg = Debug|STM32F446RE
+		{84551AF0-447D-4ED5-8DDA-3933C47A95F8}.Debug|STM32F446RE.Build.0 = Debug|STM32F446RE
 		{84551AF0-447D-4ED5-8DDA-3933C47A95F8}.Debug|x64.ActiveCfg = Debug|x64
 		{84551AF0-447D-4ED5-8DDA-3933C47A95F8}.Debug|x64.Build.0 = Debug|x64
 		{84551AF0-447D-4ED5-8DDA-3933C47A95F8}.Debug|x86.ActiveCfg = Debug|Win32
 		{84551AF0-447D-4ED5-8DDA-3933C47A95F8}.Debug|x86.Build.0 = Debug|Win32
+		{84551AF0-447D-4ED5-8DDA-3933C47A95F8}.Release|STM32.ActiveCfg = Release|Win32
+		{84551AF0-447D-4ED5-8DDA-3933C47A95F8}.Release|STM32F446RE.ActiveCfg = Release|STM32F446RE
+		{84551AF0-447D-4ED5-8DDA-3933C47A95F8}.Release|STM32F446RE.Build.0 = Release|STM32F446RE
 		{84551AF0-447D-4ED5-8DDA-3933C47A95F8}.Release|x64.ActiveCfg = Release|x64
 		{84551AF0-447D-4ED5-8DDA-3933C47A95F8}.Release|x64.Build.0 = Release|x64
 		{84551AF0-447D-4ED5-8DDA-3933C47A95F8}.Release|x86.ActiveCfg = Release|Win32
 		{84551AF0-447D-4ED5-8DDA-3933C47A95F8}.Release|x86.Build.0 = Release|Win32
+		{84551AF0-447D-4ED5-8DDA-3933C47A95F8}.Standalone|STM32.ActiveCfg = Standalone|Win32
+		{84551AF0-447D-4ED5-8DDA-3933C47A95F8}.Standalone|STM32F446RE.ActiveCfg = Standalone|STM32F446RE
+		{84551AF0-447D-4ED5-8DDA-3933C47A95F8}.Standalone|STM32F446RE.Build.0 = Standalone|STM32F446RE
+		{84551AF0-447D-4ED5-8DDA-3933C47A95F8}.Standalone|x64.ActiveCfg = Standalone|x64
+		{84551AF0-447D-4ED5-8DDA-3933C47A95F8}.Standalone|x64.Build.0 = Standalone|x64
+		{84551AF0-447D-4ED5-8DDA-3933C47A95F8}.Standalone|x86.ActiveCfg = Standalone|Win32
+		{84551AF0-447D-4ED5-8DDA-3933C47A95F8}.Standalone|x86.Build.0 = Standalone|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

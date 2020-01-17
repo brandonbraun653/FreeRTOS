@@ -31,6 +31,12 @@
     <Filter Include="portable\memmang">
       <UniqueIdentifier>{fa7a78c3-4ddc-4e02-9049-9f948f360dd3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Device-specific files">
+      <UniqueIdentifier>{0d0d196a-2bf0-4102-a656-bca622496d18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="VisualGDB settings">
+      <UniqueIdentifier>{927659f6-7ad2-459d-b7c0-ff81c90ac2ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\croutine.h">
@@ -96,6 +102,9 @@
     <ClInclude Include="..\..\..\portable\GCC\Posix\portmacro.h">
       <Filter>portable\gcc\posix</Filter>
     </ClInclude>
+    <None Include="stm32.xml">
+      <Filter>VisualGDB settings</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\croutine.c">
