@@ -199,14 +199,17 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|STM32F446RE'">
     <ToolchainID>com.visualgdb.arm-eabi</ToolchainID>
     <ToolchainVersion>9.2.1/8.3.0/r1</ToolchainVersion>
+    <GNUTargetType>StaticLibrary</GNUTargetType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Standalone|STM32F446RE'">
     <ToolchainID>com.visualgdb.arm-eabi</ToolchainID>
     <ToolchainVersion>9.2.1/8.3.0/r1</ToolchainVersion>
+    <GNUTargetType>StaticLibrary</GNUTargetType>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|STM32F446RE'">
     <ToolchainID>com.visualgdb.arm-eabi</ToolchainID>
     <ToolchainVersion>9.2.1/8.3.0/r1</ToolchainVersion>
+    <GNUTargetType>StaticLibrary</GNUTargetType>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -320,14 +323,14 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|STM32F446RE'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)../../../include;$(FreeRTOSCfgDir);$(FreeRTOSPortDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>%(ClCompile.PreprocessorDefinitions);$(FreeRTOSCompilerDefines);</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(FreeRTOSCfgDir);$(FreeRTOSPortDir);$(ProjectDir)../../../include;$(FreeRTOSCfgDir);$(FreeRTOSPortDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(ClCompile.PreprocessorDefinitions);$(FreeRTOSCompilerDefines);;$(ProjectCompilerDefines)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Standalone|STM32F446RE'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)../../../include;$(ProjectDir);$(ProjectDir)../../../portable/GCC/ARM_CM4F;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>NDEBUG=1;RELEASE=1;_EMBEDDED;FREERTOS_CFG_MEM_MANG_HEAP4;FREERTOS_CFG_PORT_ARM_CM4F;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(FreeRTOSCfgDir);$(FreeRTOSPortDir);$(ProjectDir)../../../include;$(ProjectDir);$(ProjectDir)../../../portable/GCC/ARM_CM4F;%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG=1;RELEASE=1;_EMBEDDED;FREERTOS_CFG_MEM_MANG_HEAP4;FREERTOS_CFG_PORT_ARM_CM4F;%(ClCompile.PreprocessorDefinitions);$(ProjectCompilerDefines)</PreprocessorDefinitions>
       <AdditionalOptions>
       </AdditionalOptions>
       <CLanguageStandard>
@@ -347,8 +350,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|STM32F446RE'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)../../../include;$(FreeRTOSCfgDir);$(FreeRTOSPortDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>%(ClCompile.PreprocessorDefinitions);$(FreeRTOSCompilerDefines);</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(FreeRTOSCfgDir);$(FreeRTOSPortDir);$(ProjectDir)../../../include;$(FreeRTOSCfgDir);$(FreeRTOSPortDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>%(ClCompile.PreprocessorDefinitions);$(FreeRTOSCompilerDefines);;$(ProjectCompilerDefines)</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
