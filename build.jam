@@ -211,6 +211,7 @@ alias DEVICE_TARGET_PUB
     :   <FreeRTOS-port>Windows 
     :
     :   <include>$(rtos_msvc_dir)
+        <define>FREERTOS_CFG_PORT_MSVC=1
     ;
 
 # ------------------------------------------
@@ -250,12 +251,10 @@ explicit DEVICE_TARGET_PUB ;
 # Allows a target to import common headers. 
 # Automatically derives the port specific headers.
 # ------------------------------------------
-explicit_alias PUB 
-    : 
-    : 
-    : 
-    :   <include>$(rtos_inc_dir)    # Standard FreeRTOS includes
-        <use>DEVICE_TARGET_PUB      # Device port specific includes 
+explicit_alias PUB : : : :
+    <include>$(rtos_inc_dir)    # Standard FreeRTOS includes
+    <use>DEVICE_TARGET_PUB      # Device port specific includes 
+    <use>/PRJ//FREERTOS_CFG
     ;
 
 # ------------------------------------------
