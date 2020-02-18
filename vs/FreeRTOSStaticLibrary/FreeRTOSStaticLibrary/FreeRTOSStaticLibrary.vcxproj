@@ -325,7 +325,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(ProjectDir)../../../include;$(FreeRTOSCfgDir);$(FreeRTOSPortDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
     <Link>
@@ -342,7 +342,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(ProjectDir)../../../include;$(FreeRTOSCfgDir);$(FreeRTOSPortDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
     <Link>
@@ -359,7 +359,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(ProjectDir)../../../include;$(FreeRTOSCfgDir);$(FreeRTOSPortDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
     <Link>
@@ -376,7 +376,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(ProjectDir)../../../include;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
     <Link>
@@ -393,7 +393,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(ProjectDir)../../../include;$(FreeRTOSCfgDir);$(FreeRTOSPortDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
     <Link>
@@ -410,7 +410,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(ProjectDir)../../../include;$(FreeRTOSCfgDir);$(FreeRTOSPortDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
     <Link>
@@ -427,7 +427,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(ProjectDir)../../../include;$(FreeRTOSCfgDir);$(FreeRTOSPortDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
     <Link>
@@ -444,7 +444,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(ProjectDir)../../../include;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
     <Link>
@@ -463,7 +463,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(ProjectDir)../../../include;$(FreeRTOSCfgDir);$(FreeRTOSPortDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
     <Link>
@@ -484,7 +484,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(ProjectDir)../../../include;$(FreeRTOSCfgDir);$(FreeRTOSPortDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
       <DisableLanguageExtensions>false</DisableLanguageExtensions>
     </ClCompile>
     <Link>
@@ -498,6 +498,8 @@
     <ClCompile>
       <AdditionalIncludeDirectories>$(FreeRTOSCfgDir);$(FreeRTOSPortDir);$(ProjectDir)../../../include;$(FreeRTOSCfgDir);$(FreeRTOSPortDir);%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>$(FreeRTOSCompilerDefines);$(ProjectCompilerDefines);%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CLanguageStandard>C2x</CLanguageStandard>
+      <CPPLanguageStandard>CPP2A</CPPLanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalLinkerInputs>;%(Link.AdditionalLinkerInputs)</AdditionalLinkerInputs>
@@ -510,6 +512,8 @@
     <ClCompile>
       <AdditionalIncludeDirectories>$(FreeRTOSCfgDir);$(FreeRTOSPortDir);$(ProjectDir)../../../include;$(FreeRTOSCfgDir);$(FreeRTOSPortDir);%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>$(FreeRTOSCompilerDefines);$(ProjectCompilerDefines);%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CLanguageStandard>C2x</CLanguageStandard>
+      <CPPLanguageStandard>CPP2A</CPPLanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalLinkerInputs>;%(Link.AdditionalLinkerInputs)</AdditionalLinkerInputs>
@@ -523,6 +527,8 @@
     <ClCompile>
       <AdditionalIncludeDirectories>$(FreeRTOSCfgDir);$(FreeRTOSPortDir);$(ProjectDir)../../../include;$(FreeRTOSCfgDir);$(FreeRTOSPortDir);%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>$(FreeRTOSCompilerDefines);$(ProjectCompilerDefines);%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <CLanguageStandard>C2x</CLanguageStandard>
+      <CPPLanguageStandard>CPP2A</CPPLanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalLinkerInputs>;%(Link.AdditionalLinkerInputs)</AdditionalLinkerInputs>
@@ -538,10 +544,8 @@
       <PreprocessorDefinitions>NDEBUG=1;RELEASE=1;_EMBEDDED;FREERTOS_CFG_MEM_MANG_HEAP4;FREERTOS_CFG_PORT_ARM_CM4F;%(ClCompile.PreprocessorDefinitions);$(ProjectCompilerDefines)</PreprocessorDefinitions>
       <AdditionalOptions>
       </AdditionalOptions>
-      <CLanguageStandard>
-      </CLanguageStandard>
-      <CPPLanguageStandard>
-      </CPPLanguageStandard>
+      <CLanguageStandard>C2x</CLanguageStandard>
+      <CPPLanguageStandard>CPP2A</CPPLanguageStandard>
     </ClCompile>
     <Link>
       <LibrarySearchDirectories>%(Link.LibrarySearchDirectories)</LibrarySearchDirectories>
@@ -557,6 +561,8 @@
     <ClCompile>
       <AdditionalIncludeDirectories>$(FreeRTOSCfgDir);$(FreeRTOSPortDir);$(ProjectDir)../../../include;$(FreeRTOSCfgDir);$(FreeRTOSPortDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>%(ClCompile.PreprocessorDefinitions);$(FreeRTOSCompilerDefines);;$(ProjectCompilerDefines)</PreprocessorDefinitions>
+      <CLanguageStandard>C2x</CLanguageStandard>
+      <CPPLanguageStandard>CPP2A</CPPLanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
