@@ -160,6 +160,7 @@ alias DEVICE_TARGET_PUB
     :   <Thor>enabled-F4 
     :
     :   <include>$(rtos_gcc_dir)/ARM_CM4F
+        <define>FREERTOS_CFG_PORT_ARM_CM4F=1
     ;
 
 # ------------------------------------------
