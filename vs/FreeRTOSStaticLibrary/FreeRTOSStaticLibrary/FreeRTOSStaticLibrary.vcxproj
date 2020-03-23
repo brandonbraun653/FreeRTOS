@@ -563,6 +563,7 @@
       <PreprocessorDefinitions>%(ClCompile.PreprocessorDefinitions);$(FreeRTOSCompilerDefines);;$(ProjectCompilerDefines)</PreprocessorDefinitions>
       <CLanguageStandard>C2x</CLanguageStandard>
       <CPPLanguageStandard>CPP2A</CPPLanguageStandard>
+      <Optimization>Os</Optimization>
     </ClCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
