@@ -158,5 +158,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Configuration.md" />
+    <None Include="FreeRTOSStaticLibrary-STM32F446RE-Debug.vgdbsettings">
+      <Filter>VisualGDB settings</Filter>
+    </None>
+    <None Include="FreeRTOSStaticLibrary-STM32F446RE-Release.vgdbsettings">
+      <Filter>VisualGDB settings</Filter>
+    </None>
+    <None Include="FreeRTOSStaticLibrary-STM32F446RE-Standalone.vgdbsettings">
+      <Filter>VisualGDB settings</Filter>
+    </None>
+    <None Include="FreeRTOSStaticLibrary-STM32L432KC-Debug.vgdbsettings">
+      <Filter>VisualGDB settings</Filter>
+    </None>
+    <None Include="FreeRTOSStaticLibrary-STM32L432KC-Release.vgdbsettings">
+      <Filter>VisualGDB settings</Filter>
+    </None>
   </ItemGroup>
 </Project>

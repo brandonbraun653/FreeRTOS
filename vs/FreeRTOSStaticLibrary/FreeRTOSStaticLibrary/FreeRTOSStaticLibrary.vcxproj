@@ -5,6 +5,10 @@
       <Configuration>Debug</Configuration>
       <Platform>STM32F446RE</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|STM32L432KC">
+      <Configuration>Debug</Configuration>
+      <Platform>STM32L432KC</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
@@ -12,6 +16,10 @@
     <ProjectConfiguration Include="Release|STM32F446RE">
       <Configuration>Release</Configuration>
       <Platform>STM32F446RE</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|STM32L432KC">
+      <Configuration>Release</Configuration>
+      <Platform>STM32L432KC</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
@@ -29,6 +37,10 @@
       <Configuration>RF24_1</Configuration>
       <Platform>STM32F446RE</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="RF24_1|STM32L432KC">
+      <Configuration>RF24_1</Configuration>
+      <Platform>STM32L432KC</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="RF24_1|Win32">
       <Configuration>RF24_1</Configuration>
       <Platform>Win32</Platform>
@@ -41,6 +53,10 @@
       <Configuration>RF24_2</Configuration>
       <Platform>STM32F446RE</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="RF24_2|STM32L432KC">
+      <Configuration>RF24_2</Configuration>
+      <Platform>STM32L432KC</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="RF24_2|Win32">
       <Configuration>RF24_2</Configuration>
       <Platform>Win32</Platform>
@@ -52,6 +68,10 @@
     <ProjectConfiguration Include="Standalone|STM32F446RE">
       <Configuration>Standalone</Configuration>
       <Platform>STM32F446RE</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Standalone|STM32L432KC">
+      <Configuration>Standalone</Configuration>
+      <Platform>STM32L432KC</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Standalone|Win32">
       <Configuration>Standalone</Configuration>
@@ -84,6 +104,11 @@
     <ClInclude Include="..\..\..\portable\GCC\ARM_CM7\r0p1\portmacro.h" />
     <ClInclude Include="..\..\..\portable\GCC\Posix\portmacro.h" />
     <ClInclude Include="..\..\..\portable\MSVC-MingW\portmacro.h" />
+    <None Include="FreeRTOSStaticLibrary-STM32F446RE-Debug.vgdbsettings" />
+    <None Include="FreeRTOSStaticLibrary-STM32F446RE-Release.vgdbsettings" />
+    <None Include="FreeRTOSStaticLibrary-STM32F446RE-Standalone.vgdbsettings" />
+    <None Include="FreeRTOSStaticLibrary-STM32L432KC-Debug.vgdbsettings" />
+    <None Include="FreeRTOSStaticLibrary-STM32L432KC-Release.vgdbsettings" />
     <None Include="stm32.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -255,6 +280,12 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|STM32F446RE'">
     <Import Project="FreeRTOSProperties.props" />
   </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|STM32L432KC'">
+    <Import Project="FreeRTOSProperties.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|STM32L432KC'">
+    <Import Project="FreeRTOSProperties.props" />
+  </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -315,6 +346,36 @@
     <ToolchainVersion>9.2.1/8.3.0/r1</ToolchainVersion>
     <GNUTargetType>StaticLibrary</GNUTargetType>
     <LinkAsWholeArchive>true</LinkAsWholeArchive>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|STM32L432KC'">
+    <ToolchainID>com.visualgdb.arm-eabi</ToolchainID>
+    <ToolchainVersion>9.2.1/8.3.0/r1</ToolchainVersion>
+    <GNUTargetType>StaticLibrary</GNUTargetType>
+    <GNUConfigurationType>Debug</GNUConfigurationType>
+    <LinkAsWholeArchive>true</LinkAsWholeArchive>
+    <MCUPropertyListFile>$(ProjectDir)stm32.props</MCUPropertyListFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RF24_2|STM32L432KC'">
+    <ToolchainID>com.visualgdb.arm-eabi</ToolchainID>
+    <ToolchainVersion>9.2.1/8.3.0/r1</ToolchainVersion>
+    <MCUPropertyListFile>$(ProjectDir)stm32.props</MCUPropertyListFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RF24_1|STM32L432KC'">
+    <ToolchainID>com.visualgdb.arm-eabi</ToolchainID>
+    <ToolchainVersion>9.2.1/8.3.0/r1</ToolchainVersion>
+    <MCUPropertyListFile>$(ProjectDir)stm32.props</MCUPropertyListFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Standalone|STM32L432KC'">
+    <ToolchainID>com.visualgdb.arm-eabi</ToolchainID>
+    <ToolchainVersion>9.2.1/8.3.0/r1</ToolchainVersion>
+    <MCUPropertyListFile>$(ProjectDir)stm32.props</MCUPropertyListFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|STM32L432KC'">
+    <ToolchainID>com.visualgdb.arm-eabi</ToolchainID>
+    <ToolchainVersion>9.2.1/8.3.0/r1</ToolchainVersion>
+    <GNUTargetType>StaticLibrary</GNUTargetType>
+    <LinkAsWholeArchive>true</LinkAsWholeArchive>
+    <MCUPropertyListFile>$(ProjectDir)stm32.props</MCUPropertyListFile>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -496,8 +557,8 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|STM32F446RE'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(FreeRTOSCfgDir);$(FreeRTOSPortDir);$(ProjectDir)../../../include;$(FreeRTOSCfgDir);$(FreeRTOSPortDir);%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>$(FreeRTOSCompilerDefines);$(ProjectCompilerDefines);%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(FreeRTOSCfgDir);$(FreeRTOSPortDir);$(FreeRTOSIncDir);%(ClCompile.AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>EMBEDDED;$(FreeRTOSCompilerDefines);%(ClCompile.PreprocessorDefinitions);</PreprocessorDefinitions>
       <CLanguageStandard>C2x</CLanguageStandard>
       <CPPLanguageStandard>CPP2A</CPPLanguageStandard>
     </ClCompile>
@@ -559,11 +620,37 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|STM32F446RE'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(FreeRTOSCfgDir);$(FreeRTOSPortDir);$(ProjectDir)../../../include;$(FreeRTOSCfgDir);$(FreeRTOSPortDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>%(ClCompile.PreprocessorDefinitions);$(FreeRTOSCompilerDefines);;$(ProjectCompilerDefines)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(FreeRTOSCfgDir);$(FreeRTOSPortDir);$(FreeRTOSIncDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>EMBEDDED;$(FreeRTOSCompilerDefines);%(ClCompile.PreprocessorDefinitions);</PreprocessorDefinitions>
       <CLanguageStandard>C2x</CLanguageStandard>
       <CPPLanguageStandard>CPP2A</CPPLanguageStandard>
       <Optimization>Os</Optimization>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|STM32L432KC'">
+    <ClCompile>
+      <CLanguageStandard>C2x</CLanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|STM32L432KC'">
+    <ClCompile>
+      <CPPLanguageStandard>CPP2A</CPPLanguageStandard>
+      <AdditionalIncludeDirectories>$(FreeRTOSCfgDir);$(FreeRTOSPortDir);$(FreeRTOSIncDir);</AdditionalIncludeDirectories>
+      <Optimization>Og</Optimization>
+      <PreprocessorDefinitions>EMBEDDED;TARGET_STM32L4;STM32L432xx;$(FreeRTOSCompilerDefines);%(ClCompile.PreprocessorDefinitions);DEBUG=1</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|STM32L432KC'">
+    <ClCompile>
+      <CLanguageStandard>C2x</CLanguageStandard>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|STM32L432KC'">
+    <ClCompile>
+      <CPPLanguageStandard>CPP2A</CPPLanguageStandard>
+      <AdditionalIncludeDirectories>$(FreeRTOSCfgDir);$(FreeRTOSPortDir);$(FreeRTOSIncDir);</AdditionalIncludeDirectories>
+      <Optimization>Os</Optimization>
+      <PreprocessorDefinitions>EMBEDDED;TARGET_STM32L4;STM32L432xx;$(FreeRTOSCompilerDefines);%(ClCompile.PreprocessorDefinitions);NDEBUG=1;RELEASE=1</PreprocessorDefinitions>
     </ClCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
