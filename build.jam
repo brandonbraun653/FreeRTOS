@@ -3,7 +3,7 @@ import lib/CommonTools/boost-build/features/thor ;
 import lib/CommonTools/boost-build/features/chimera ;
 
 # ====================================================
-# Local Rules 
+# Local Rules
 # ====================================================
 local rule explicit_alias ( name : sources * : requirements * : default-build * : usage-requirements * )
     {
@@ -12,10 +12,10 @@ local rule explicit_alias ( name : sources * : requirements * : default-build * 
     }
 
 # ====================================================
-# Local Resources 
+# Local Resources
 # ====================================================
 # ------------------------------------------
-# Build Target Specific Options 
+# Build Target Specific Options
 # ------------------------------------------
 local dbg_defs = DEBUG ;
 local dbg_cflags = -ggdb -Og ;
@@ -27,18 +27,18 @@ local rel_cflags = -O3 ;
 # CFlags generic enough to not be processor specific.
 # Only applies to FreeRTOS and are not propagated.
 # ------------------------------------------
-local requirements_cflags = 
+local requirements_cflags =
     -fno-common
     -fmessage-length=0
     -fno-exceptions
     -ffunction-sections
     -fdata-sections
     -Wall
-    --std=gnu11 
+    --std=gnu11
     ;
 
 # ------------------------------------------
-# Source/Include Directories 
+# Source/Include Directories
 # ------------------------------------------
 local rtos_inc_dir = include ;
 local rtos_gcc_dir = portable/GCC ;
@@ -68,7 +68,7 @@ lib HEAP
 
     :   <FreeRTOS>enabled-heap1
         <link>static
-        <include>$(rtos_inc_dir) 
+        <include>$(rtos_inc_dir)
         <use>DEVICE_TARGET_PUB
         <use>/PRJ//FREERTOS_CFG
         <use>/PRJ//TARGET_OPTIONS       # Compiler flags and settings
@@ -82,7 +82,7 @@ lib HEAP
 
     :   <FreeRTOS>enabled-heap2
         <link>static
-        <include>$(rtos_inc_dir) 
+        <include>$(rtos_inc_dir)
         <use>DEVICE_TARGET_PUB
         <use>/PRJ//FREERTOS_CFG
         <use>/PRJ//TARGET_OPTIONS       # Compiler flags and settings
@@ -96,14 +96,14 @@ lib HEAP
 
     :   <FreeRTOS>enabled-heap3
         <link>static
-        <include>$(rtos_inc_dir) 
+        <include>$(rtos_inc_dir)
         <use>DEVICE_TARGET_PUB
         <use>/PRJ//FREERTOS_CFG
         <use>/PRJ//TARGET_OPTIONS       # Compiler flags and settings
     ;
 
 # ------------------------------------------
-# Coalescences adjacent free blocks to avoid fragmentation. 
+# Coalescences adjacent free blocks to avoid fragmentation.
 # Includes absolute address placement option.
 # ------------------------------------------
 lib HEAP
@@ -111,14 +111,14 @@ lib HEAP
 
     :   <FreeRTOS>enabled-heap4
         <link>static
-        <include>$(rtos_inc_dir) 
+        <include>$(rtos_inc_dir)
         <use>DEVICE_TARGET_PUB
         <use>/PRJ//FREERTOS_CFG
         <use>/PRJ//TARGET_OPTIONS       # Compiler flags and settings
     ;
 
 # ------------------------------------------
-# As per heap_4, with the ability to span the heap across 
+# As per heap_4, with the ability to span the heap across
 # multiple non-adjacent memory areas.
 # ------------------------------------------
 lib HEAP
@@ -141,7 +141,7 @@ explicit HEAP ;
 # STM32F4 Port
 # ------------------------------------------
 lib DEVICE_TARGET
-    :   $(rtos_gcc_dir)/ARM_CM4F/port.c
+    :   $(rtos_gcc_dir)/ARM_CM4F/arm_cm4f_port.c
 
     :   <FreeRTOS>enabled-CortexM
         <Thor>enabled-F4
@@ -155,9 +155,9 @@ lib DEVICE_TARGET
         <use>/PRJ//FREERTOS_CFG
     ;
 
-alias DEVICE_TARGET_PUB 
-    : 
-    :   <Thor>enabled-F4 
+alias DEVICE_TARGET_PUB
+    :
+    :   <Thor>enabled-F4
     :
     :   <include>$(rtos_gcc_dir)/ARM_CM4F
         <define>FREERTOS_CFG_PORT_ARM_CM4F=1
@@ -169,20 +169,20 @@ alias DEVICE_TARGET_PUB
 lib DEVICE_TARGET
     :   $(rtos_gcc_dir)/ARM_CM7/r0p1/port.c
 
-    :   <FreeRTOS>enabled-CortexM  
+    :   <FreeRTOS>enabled-CortexM
         <Thor>enabled-F7
         <include>$(rtos_inc_dir)
         <include>$(rtos_gcc_dir)/ARM_CM7/r0p1
         <use>/PRJ//FREERTOS_CFG
 
         <library>HEAP
-    : 
+    :
     :   <include>$(rtos_gcc_dir)/ARM_CM7/r0p1
-        <use>/PRJ//FREERTOS_CFG 
+        <use>/PRJ//FREERTOS_CFG
     ;
 
-alias DEVICE_TARGET_PUB 
-    : 
+alias DEVICE_TARGET_PUB
+    :
     :   <Thor>enabled-F7
     :
     :   <include>$(rtos_gcc_dir)/ARM_CM7/r0p1
@@ -193,7 +193,7 @@ alias DEVICE_TARGET_PUB
 # ------------------------------------------
 lib DEVICE_TARGET
     :   $(rtos_msvc_dir)/port.c
-    
+
     :   <FreeRTOS>enabled-Windows
         <include>$(rtos_inc_dir)
         <include>$(rtos_msvc_dir)
@@ -201,15 +201,15 @@ lib DEVICE_TARGET
         <use>/PRJ//FREERTOS_CFG
 
         <library>HEAP
-    : 
+    :
     :   <include>$(rtos_msvc_dir)
         <use>/PRJ//FREERTOS_CFG
         <toolset>gcc:<linkflags>-lwinmm              # Required for some timer functionality
     ;
 
-alias DEVICE_TARGET_PUB 
-    : 
-    :   <FreeRTOS-port>Windows 
+alias DEVICE_TARGET_PUB
+    :
+    :   <FreeRTOS-port>Windows
     :
     :   <include>$(rtos_msvc_dir)
     ;
@@ -233,9 +233,9 @@ lib DEVICE_TARGET
         <use>/PRJ//FREERTOS_CFG
     ;
 
-alias DEVICE_TARGET_PUB 
-    : 
-    :   <FreeRTOS-port>Posix 
+alias DEVICE_TARGET_PUB
+    :
+    :   <FreeRTOS-port>Posix
     :
     :   <include>$(rtos_gcc_dir)/Posix
     ;
@@ -248,13 +248,13 @@ explicit DEVICE_TARGET_PUB ;
 # ====================================================
 
 # ------------------------------------------
-# Allows a target to import common headers. 
+# Allows a target to import common headers.
 # Automatically derives the port specific headers.
 # ------------------------------------------
-explicit_alias PUB 
-    : 
-    : 
-    : 
+explicit_alias PUB
+    :
+    :
+    :
     :   <include>$(rtos_inc_dir)    # Standard FreeRTOS includes
         <use>DEVICE_TARGET_PUB      # Device port specific includes
         <use>/PRJ//FREERTOS_CFG
@@ -272,9 +272,9 @@ lib CORE
 
         <use>/PRJ//FREERTOS_CFG
         <use>DEVICE_TARGET_PUB
-        
+
         <library>DEVICE_TARGET
-    :   
+    :
     :   <use>PUB
         <use>DEVICE_TARGET
     ;
