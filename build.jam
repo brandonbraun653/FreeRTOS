@@ -111,6 +111,7 @@ lib HEAP
 
     :   <FreeRTOS>enabled-heap4
         <link>static
+        <define>FREERTOS_CFG_MEM_MANG_HEAP4=1
         <include>$(rtos_inc_dir)
         <use>DEVICE_TARGET_PUB
         <use>/PRJ//FREERTOS_CFG
@@ -148,6 +149,7 @@ lib DEVICE_TARGET
         <include>$(rtos_inc_dir)
         <include>$(rtos_gcc_dir)/ARM_CM4F
         <use>/PRJ//FREERTOS_CFG
+        <use>/PRJ//TARGET_OPTIONS
 
         <library>HEAP
     :
@@ -164,6 +166,34 @@ alias DEVICE_TARGET_PUB
     ;
 
 # ------------------------------------------
+# STM32L4 Port
+# ------------------------------------------
+lib DEVICE_TARGET
+    :   $(rtos_gcc_dir)/ARM_CM4F/arm_cm4f_port.c
+
+    :   <FreeRTOS>enabled-CortexM
+        <Thor>enabled-L4
+        <include>$(rtos_inc_dir)
+        <include>$(rtos_gcc_dir)/ARM_CM4F
+        <use>DEVICE_TARGET_PUB
+        <use>/PRJ//FREERTOS_CFG
+        <use>/PRJ//TARGET_OPTIONS
+
+        <library>HEAP
+    :
+    :   <include>$(rtos_gcc_dir)/ARM_CM4F
+        <use>/PRJ//FREERTOS_CFG
+    ;
+
+alias DEVICE_TARGET_PUB
+    :
+    :   <Thor>enabled-L4
+    :
+    :   <include>$(rtos_gcc_dir)/ARM_CM4F
+        <define>FREERTOS_CFG_PORT_ARM_CM4F=1
+    ;
+
+# ------------------------------------------
 # STM32F7 Port
 # ------------------------------------------
 lib DEVICE_TARGET
@@ -174,6 +204,7 @@ lib DEVICE_TARGET
         <include>$(rtos_inc_dir)
         <include>$(rtos_gcc_dir)/ARM_CM7/r0p1
         <use>/PRJ//FREERTOS_CFG
+        <use>/PRJ//TARGET_OPTIONS
 
         <library>HEAP
     :
@@ -270,8 +301,9 @@ lib CORE
         <link>static
         <include>$(rtos_inc_dir)
 
-        <use>/PRJ//FREERTOS_CFG
         <use>DEVICE_TARGET_PUB
+        <use>/PRJ//FREERTOS_CFG
+        <use>/PRJ//TARGET_OPTIONS
 
         <library>DEVICE_TARGET
     :
