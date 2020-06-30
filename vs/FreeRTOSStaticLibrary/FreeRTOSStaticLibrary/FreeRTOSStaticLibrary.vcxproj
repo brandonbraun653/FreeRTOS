@@ -705,7 +705,7 @@
     <ClCompile>
       <CPPLanguageStandard>CPP2A</CPPLanguageStandard>
       <AdditionalIncludeDirectories>$(FreeRTOSCfgDir);$(FreeRTOSPortDir);$(FreeRTOSIncDir);</AdditionalIncludeDirectories>
-      <Optimization>Og</Optimization>
+      <Optimization>Os</Optimization>
       <PreprocessorDefinitions>EMBEDDED;TARGET_STM32L4;STM32L432xx;$(FreeRTOSCompilerDefines);%(ClCompile.PreprocessorDefinitions);DEBUG=1</PreprocessorDefinitions>
     </ClCompile>
     <ToolchainSettingsContainer>
