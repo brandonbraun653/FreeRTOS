@@ -36,7 +36,7 @@
 
 /* Scheduler includes. */
 #include "FreeRTOS.h"
-#include "task.h"
+#include <FreeRTOS/task.h>
 
 #ifndef __VFP_FP__
 	#error This port can only be used when the project options are configured to enable hardware floating point support.
@@ -765,7 +765,7 @@ static void vPortEnableVFP( void )
 		configASSERT( ( portAIRCR_REG & portPRIORITY_GROUP_MASK ) <= ulMaxPRIGROUPValue );
 	}
 
-	
+
 
 #endif /* configASSERT_DEFINED */
 

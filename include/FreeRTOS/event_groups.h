@@ -34,7 +34,7 @@
 #endif
 
 /* FreeRTOS includes. */
-#include "timers.h"
+#include <FreeRTOS/timers.h>
 
 #ifdef __cplusplus
 extern "C" {

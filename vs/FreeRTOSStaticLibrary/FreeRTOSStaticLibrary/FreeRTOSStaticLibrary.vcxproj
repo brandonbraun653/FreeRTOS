@@ -103,23 +103,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\include\croutine.h" />
-    <ClInclude Include="..\..\..\include\deprecated_definitions.h" />
-    <ClInclude Include="..\..\..\include\event_groups.h" />
-    <ClInclude Include="..\..\..\include\FreeRTOS.h" />
-    <ClInclude Include="..\..\..\include\list.h" />
-    <ClInclude Include="..\..\..\include\message_buffer.h" />
-    <ClInclude Include="..\..\..\include\mpu_prototypes.h" />
-    <ClInclude Include="..\..\..\include\mpu_wrappers.h" />
-    <ClInclude Include="..\..\..\include\portable.h" />
-    <ClInclude Include="..\..\..\include\projdefs.h" />
-    <ClInclude Include="..\..\..\include\queue.h" />
-    <ClInclude Include="..\..\..\include\semphr.h" />
-    <ClInclude Include="..\..\..\include\StackMacros.h" />
-    <ClInclude Include="..\..\..\include\stack_macros.h" />
-    <ClInclude Include="..\..\..\include\stream_buffer.h" />
-    <ClInclude Include="..\..\..\include\task.h" />
-    <ClInclude Include="..\..\..\include\timers.h" />
+    <ClInclude Include="..\..\..\include\FreeRTOS\croutine.h" />
+    <ClInclude Include="..\..\..\include\FreeRTOS\deprecated_definitions.h" />
+    <ClInclude Include="..\..\..\include\FreeRTOS\event_groups.h" />
+    <ClInclude Include="..\..\..\include\FreeRTOS\FreeRTOS.h" />
+    <ClInclude Include="..\..\..\include\FreeRTOS\list.h" />
+    <ClInclude Include="..\..\..\include\FreeRTOS\message_buffer.h" />
+    <ClInclude Include="..\..\..\include\FreeRTOS\mpu_prototypes.h" />
+    <ClInclude Include="..\..\..\include\FreeRTOS\mpu_wrappers.h" />
+    <ClInclude Include="..\..\..\include\FreeRTOS\portable.h" />
+    <ClInclude Include="..\..\..\include\FreeRTOS\projdefs.h" />
+    <ClInclude Include="..\..\..\include\FreeRTOS\queue.h" />
+    <ClInclude Include="..\..\..\include\FreeRTOS\semphr.h" />
+    <ClInclude Include="..\..\..\include\FreeRTOS\StackMacros.h" />
+    <ClInclude Include="..\..\..\include\FreeRTOS\stack_macros.h" />
+    <ClInclude Include="..\..\..\include\FreeRTOS\stream_buffer.h" />
+    <ClInclude Include="..\..\..\include\FreeRTOS\task.h" />
+    <ClInclude Include="..\..\..\include\FreeRTOS\timers.h" />
     <ClInclude Include="..\..\..\portable\GCC\ARM_CM4F\portmacro.h" />
     <ClInclude Include="..\..\..\portable\GCC\ARM_CM7\r0p1\portmacro.h" />
     <ClInclude Include="..\..\..\portable\GCC\Posix\portmacro.h" />

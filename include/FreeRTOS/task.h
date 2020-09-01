@@ -34,7 +34,7 @@
 	#error "include FreeRTOS.h must appear in source files before include task.h"
 #endif
 
-#include "list.h"
+#include <FreeRTOS/list.h>
 #include "portmacro.h"
 
 #ifdef __cplusplus

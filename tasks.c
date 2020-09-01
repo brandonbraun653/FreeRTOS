@@ -37,8 +37,8 @@ task.h is included from an application file. */
 
 /* FreeRTOS includes. */
 #include "FreeRTOS.h"
-#include "task.h"
-#include "timers.h"
+#include <FreeRTOS/task.h>
+#include <FreeRTOS/timers.h>
 #include "stack_macros.h"
 
 /* Lint e961 and e750 are suppressed as a MISRA exception justified because the
@@ -2591,7 +2591,7 @@ BaseType_t xTaskIncrementTick( void )
 TCB_t * pxTCB;
 TickType_t xItemValue;
 BaseType_t xSwitchRequired = pdFALSE;
-	
+
 	/* Called by the portable layer each time a tick interrupt occurs.
 	Increments the tick then checks to see if the new tick value will cause any
 	tasks to be unblocked. */

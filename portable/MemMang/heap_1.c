@@ -26,7 +26,7 @@
  * 1 tab == 4 spaces!
  */
 
- 
+
 #include "FreeRTOSConfig.h"
 
 #if defined( FREERTOS_CFG_MEM_MANG_HEAP1 ) && ( FREERTOS_CFG_MEM_MANG_HEAP1 == 1 )
@@ -46,7 +46,7 @@ task.h is included from an application file. */
 #define MPU_WRAPPERS_INCLUDED_FROM_API_FILE
 
 #include "FreeRTOS.h"
-#include "task.h"
+#include <FreeRTOS/task.h>
 
 #undef MPU_WRAPPERS_INCLUDED_FROM_API_FILE
 
