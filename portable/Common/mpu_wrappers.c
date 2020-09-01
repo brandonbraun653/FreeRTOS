@@ -37,7 +37,7 @@ task.h is included from an application file. */
 #define MPU_WRAPPERS_INCLUDED_FROM_API_FILE
 
 /* Scheduler includes. */
-#include "FreeRTOS.h"
+#include <FreeRTOS/FreeRTOS.h>
 #include <FreeRTOS/task.h>
 #include <FreeRTOS/queue.h>
 #include <FreeRTOS/timers.h>

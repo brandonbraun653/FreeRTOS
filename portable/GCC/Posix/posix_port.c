@@ -70,7 +70,7 @@
 #include <limits.h>
 
 /* Scheduler includes. */
-#include "FreeRTOS.h"
+#include <FreeRTOS/FreeRTOS.h>
 #include <FreeRTOS/task.h>
 /*-----------------------------------------------------------*/
 

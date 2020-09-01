@@ -35,7 +35,7 @@
 #if defined( FREERTOS_CFG_PORT_ARM_CM4F ) && ( FREERTOS_CFG_PORT_ARM_CM4F == 1 )
 
 /* Scheduler includes. */
-#include "FreeRTOS.h"
+#include <FreeRTOS/FreeRTOS.h>
 #include <FreeRTOS/task.h>
 
 #ifndef __VFP_FP__

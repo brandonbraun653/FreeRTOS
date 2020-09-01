@@ -34,7 +34,7 @@
 #include <stdio.h>
 
 /* Scheduler includes. */
-#include "FreeRTOS.h"
+#include <FreeRTOS/FreeRTOS.h>
 #include <FreeRTOS/task.h>
 
 /* Windows Includes */

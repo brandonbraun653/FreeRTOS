@@ -28,7 +28,7 @@
 
 
 #include <stdlib.h>
-#include "FreeRTOS.h"
+#include <FreeRTOS/FreeRTOS.h>
 #include <FreeRTOS/list.h>
 
 /*-----------------------------------------------------------
