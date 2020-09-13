@@ -31,9 +31,6 @@
     <Filter Include="portable\memmang">
       <UniqueIdentifier>{fa7a78c3-4ddc-4e02-9049-9f948f360dd3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Device-specific files">
-      <UniqueIdentifier>{0d0d196a-2bf0-4102-a656-bca622496d18}</UniqueIdentifier>
-    </Filter>
     <Filter Include="VisualGDB settings">
       <UniqueIdentifier>{927659f6-7ad2-459d-b7c0-ff81c90ac2ed}</UniqueIdentifier>
     </Filter>
@@ -107,27 +104,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\croutine.c">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\event_groups.c">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\list.c">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\queue.c">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\stream_buffer.c">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\tasks.c">
-      <Filter>source</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\timers.c">
-      <Filter>source</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\portable\MemMang\heap_1.c">
       <Filter>portable\memmang</Filter>
     </ClCompile>
@@ -154,6 +130,27 @@
     </ClCompile>
     <ClCompile Include="..\..\..\portable\GCC\Posix\posix_port.c">
       <Filter>portable\gcc\posix</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\croutine.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\event_groups.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\list.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\queue.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\stream_buffer.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\tasks.c">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\timers.c">
+      <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

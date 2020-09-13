@@ -132,9 +132,6 @@
     <None Include="stm32.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\croutine.c" />
-    <ClCompile Include="..\..\..\event_groups.c" />
-    <ClCompile Include="..\..\..\list.c" />
     <ClCompile Include="..\..\..\portable\GCC\ARM_CM4F\arm_cm4f_port.c" />
     <ClCompile Include="..\..\..\portable\GCC\ARM_CM7\r0p1\arm_cm7_r0p1_port.c" />
     <ClCompile Include="..\..\..\portable\GCC\Posix\posix_port.c" />
@@ -144,10 +141,13 @@
     <ClCompile Include="..\..\..\portable\MemMang\heap_4.c" />
     <ClCompile Include="..\..\..\portable\MemMang\heap_5.c" />
     <ClCompile Include="..\..\..\portable\MSVC-MingW\msvc_port.c" />
-    <ClCompile Include="..\..\..\queue.c" />
-    <ClCompile Include="..\..\..\stream_buffer.c" />
-    <ClCompile Include="..\..\..\tasks.c" />
-    <ClCompile Include="..\..\..\timers.c" />
+    <ClCompile Include="..\..\..\src\croutine.c" />
+    <ClCompile Include="..\..\..\src\event_groups.c" />
+    <ClCompile Include="..\..\..\src\list.c" />
+    <ClCompile Include="..\..\..\src\queue.c" />
+    <ClCompile Include="..\..\..\src\stream_buffer.c" />
+    <ClCompile Include="..\..\..\src\tasks.c" />
+    <ClCompile Include="..\..\..\src\timers.c" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Configuration.md" />
