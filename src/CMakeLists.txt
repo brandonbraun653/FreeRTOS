@@ -1,7 +1,7 @@
 # ====================================================
 # Core Library
 # ====================================================
-add_library( freertos_core STATIC
+add_library(freertos_core STATIC
   croutine.c
   event_groups.c
   list.c
