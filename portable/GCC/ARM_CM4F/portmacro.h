@@ -60,6 +60,9 @@ typedef portSTACK_TYPE StackType_t;
 typedef long BaseType_t;
 typedef unsigned long UBaseType_t;
 
+#define STACK_BYTES( x ) ( x / sizeof( StackType_t ))
+#define STACK_KILOBYTES( x ) ( ( x * 1024 ) / sizeof( StackType_t ) )
+
 #if( configUSE_16_BIT_TICKS == 1 )
 	typedef uint16_t TickType_t;
 	#define portMAX_DELAY ( TickType_t ) 0xffff
