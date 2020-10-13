@@ -60,3 +60,17 @@ add_subdirectory("src")
 # ====================================================
 add_subdirectory("portable/GCC/ARM_CM4F")
 add_subdirectory("portable/MemMang")
+
+# ====================================================
+# Custom Compiler Options:
+# By default always build release variant
+# ====================================================
+set(BUILD_OPTIONS rtos_build_options)
+add_library(${BUILD_OPTIONS} INTERFACE)
+target_link_libraries(${BUILD_OPTIONS} INTERFACE
+  prj_build_target
+  #prj_build_target_rel
+  #prj_build_target_dbg
+  prj_device_target
+)
+export(TARGETS ${BUILD_OPTIONS} FILE "${PROJECT_BINARY_DIR}/FreeRTOS/${BUILD_OPTIONS}.cmake")
