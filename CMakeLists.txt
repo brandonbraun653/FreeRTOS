@@ -47,8 +47,12 @@ include("${COMMON_TOOL_ROOT}/cmake/options/freertos.cmake")
 # ====================================================
 add_library(freertos_inc INTERFACE)
 target_include_directories(freertos_inc INTERFACE "../FreeRTOS/include")
-
 export(TARGETS freertos_inc FILE "${PROJECT_BINARY_DIR}/FreeRTOS/freertos-includes.cmake")
+
+add_library(freertos_inc_legacy INTERFACE)
+target_include_directories(freertos_inc_legacy INTERFACE "../FreeRTOS/include/FreeRTOS")
+export(TARGETS freertos_inc_legacy FILE "${PROJECT_BINARY_DIR}/FreeRTOS/freertos_inc_legacy.cmake")
+
 
 # ====================================================
 # Core Library
