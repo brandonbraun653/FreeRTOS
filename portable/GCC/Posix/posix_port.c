@@ -118,13 +118,13 @@ static void *prvWaitForStart( void *pvParams );
 static void prvSuspendSignalHandler( int sig );
 static void prvResumeSignalHandler( int sig );
 static void prvSetupSignalsAndSchedulerPolicy( void );
-static void prvSuspendThread( pthread_t xThreadId );
-static void prvResumeThread( pthread_t xThreadId );
+static void prvSuspendThread( pthread_t xTaskId );
+static void prvResumeThread( pthread_t xTaskId );
 static pthread_t prvGetThreadHandle( xTaskHandle hTask );
 static portLONG prvGetFreeThreadState( void );
-static void prvSetTaskCriticalNesting( pthread_t xThreadId, unsigned portBASE_TYPE uxNesting );
-static unsigned portBASE_TYPE prvGetTaskCriticalNesting( pthread_t xThreadId );
-static void prvDeleteThread( void *xThreadId );
+static void prvSetTaskCriticalNesting( pthread_t xTaskId, unsigned portBASE_TYPE uxNesting );
+static unsigned portBASE_TYPE prvGetTaskCriticalNesting( pthread_t xTaskId );
+static void prvDeleteThread( void *xTaskId );
 /*-----------------------------------------------------------*/
 
 /*
@@ -553,7 +553,7 @@ void prvSuspendSignalHandler( int sig )
 }
 /*-----------------------------------------------------------*/
 
-void prvSuspendThread( pthread_t xThreadId )
+void prvSuspendThread( pthread_t xTaskId )
 {
   portBASE_TYPE xResult = pthread_mutex_lock( &xSuspendResumeThreadMutex );
   if ( 0 == xResult )
@@ -561,7 +561,7 @@ void prvSuspendThread( pthread_t xThreadId )
     /* Set-up for the Suspend Signal handler? */
     xSentinel = 0;
     xResult   = pthread_mutex_unlock( &xSuspendResumeThreadMutex );
-    xResult   = pthread_kill( xThreadId, SIG_SUSPEND );
+    xResult   = pthread_kill( xTaskId, SIG_SUSPEND );
     while ( ( xSentinel == 0 ) && ( pdTRUE != xServicingTick ) )
     {
       sched_yield();
@@ -580,13 +580,13 @@ void prvResumeSignalHandler( int sig )
 }
 /*-----------------------------------------------------------*/
 
-void prvResumeThread( pthread_t xThreadId )
+void prvResumeThread( pthread_t xTaskId )
 {
   if ( 0 == pthread_mutex_lock( &xSuspendResumeThreadMutex ) )
   {
-    if ( pthread_self() != xThreadId )
+    if ( pthread_self() != xTaskId )
     {
-      pthread_kill( xThreadId, SIG_RESUME );
+      pthread_kill( xTaskId, SIG_RESUME );
     }
 	pthread_mutex_unlock( &xSuspendResumeThreadMutex );
   }
@@ -682,12 +682,12 @@ portLONG prvGetFreeThreadState( void )
 }
 /*-----------------------------------------------------------*/
 
-void prvSetTaskCriticalNesting( pthread_t xThreadId, unsigned portBASE_TYPE uxNesting )
+void prvSetTaskCriticalNesting( pthread_t xTaskId, unsigned portBASE_TYPE uxNesting )
 {
   portLONG lIndex;
   for ( lIndex = 0; lIndex < MAX_NUMBER_OF_TASKS; lIndex++ )
   {
-    if ( pxThreads[ lIndex ].hThread == xThreadId )
+    if ( pxThreads[ lIndex ].hThread == xTaskId )
     {
       pxThreads[ lIndex ].uxCriticalNesting = uxNesting;
       break;
@@ -696,13 +696,13 @@ void prvSetTaskCriticalNesting( pthread_t xThreadId, unsigned portBASE_TYPE uxNe
 }
 /*-----------------------------------------------------------*/
 
-unsigned portBASE_TYPE prvGetTaskCriticalNesting( pthread_t xThreadId )
+unsigned portBASE_TYPE prvGetTaskCriticalNesting( pthread_t xTaskId )
 {
   unsigned portBASE_TYPE uxNesting = 0;
   portLONG lIndex;
   for ( lIndex = 0; lIndex < MAX_NUMBER_OF_TASKS; lIndex++ )
   {
-    if ( pxThreads[ lIndex ].hThread == xThreadId )
+    if ( pxThreads[ lIndex ].hThread == xTaskId )
     {
       uxNesting = pxThreads[ lIndex ].uxCriticalNesting;
       break;
@@ -712,12 +712,12 @@ unsigned portBASE_TYPE prvGetTaskCriticalNesting( pthread_t xThreadId )
 }
 /*-----------------------------------------------------------*/
 
-void prvDeleteThread( void *xThreadId )
+void prvDeleteThread( void *xTaskId )
 {
   portLONG lIndex;
   for ( lIndex = 0; lIndex < MAX_NUMBER_OF_TASKS; lIndex++ )
   {
-    if ( pxThreads[ lIndex ].hThread == ( pthread_t )xThreadId )
+    if ( pxThreads[ lIndex ].hThread == ( pthread_t )xTaskId )
     {
       pxThreads[ lIndex ].hThread = ( pthread_t )NULL;
       pxThreads[ lIndex ].hTask   = ( xTaskHandle )NULL;
