@@ -36,6 +36,7 @@
 #   export(TARGETS freertos_heap FILE "${PROJECT_BINARY_DIR}/ProjectConfig/freertos-heap.cmake")
 #
 # =============================================================================
+include("${COMMON_TOOL_ROOT}/cmake/utility/embedded.cmake")
 
 # ====================================================
 # Configure the FreeRTOS project appropriately
@@ -64,3 +65,19 @@ add_subdirectory("src")
 # ====================================================
 add_subdirectory("portable/GCC/ARM_CM4F")
 add_subdirectory("portable/MemMang")
+
+# ====================================================
+# Interface Library
+# ====================================================
+gen_intf_lib(
+  TARGET
+    freertos_intf_inc_all
+  INTF_LIBRARIES
+    freertos_inc          # Defined in this file
+    freertos_inc_legacy   # Defined in this file
+    freertos_cfg          # Supplied by integrating project
+    freertos_port         # Supplied by integrating project
+    freertos_heap         # Supplied by integrating project
+  EXPORT_DIR
+    "${PROJECT_BINARY_DIR}/FreeRTOS"
+)
