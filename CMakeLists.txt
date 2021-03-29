@@ -46,14 +46,15 @@ include("${COMMON_TOOL_ROOT}/cmake/options/freertos.cmake")
 # ====================================================
 # Public Headers
 # ====================================================
-add_library(freertos_inc INTERFACE)
-target_include_directories(freertos_inc INTERFACE "../FreeRTOS/include")
-export(TARGETS freertos_inc FILE "${PROJECT_BINARY_DIR}/FreeRTOS/freertos-includes.cmake")
-
-add_library(freertos_inc_legacy INTERFACE)
-target_include_directories(freertos_inc_legacy INTERFACE "../FreeRTOS/include/FreeRTOS")
-export(TARGETS freertos_inc_legacy FILE "${PROJECT_BINARY_DIR}/FreeRTOS/freertos_inc_legacy.cmake")
-
+gen_intf_lib(
+  TARGET
+    freertos_inc
+  INTF_INCLUDES
+    ./include
+    ./include/FreeRTOS
+  EXPORT_DIR
+    "${PROJECT_BINARY_DIR}/FreeRTOS"
+)
 
 # ====================================================
 # Core Library
@@ -75,7 +76,6 @@ gen_intf_lib(
     freertos_intf_inc_all
   INTF_LIBRARIES
     freertos_inc          # Defined in this file
-    freertos_inc_legacy   # Defined in this file
     freertos_cfg          # Supplied by integrating project
     freertos_port         # Supplied by integrating project
     freertos_heap         # Supplied by integrating project
