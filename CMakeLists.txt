@@ -64,6 +64,7 @@ add_subdirectory("src")
 # Portable Libraries
 # ====================================================
 add_subdirectory("portable/GCC/ARM_CM4F")
+add_subdirectory("portable/GCC/Posix")
 add_subdirectory("portable/MemMang")
 
 # ====================================================

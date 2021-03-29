@@ -2,11 +2,11 @@ include("${COMMON_TOOL_ROOT}/cmake/utility/embedded.cmake")
 
 gen_static_lib_variants(
   TARGET
-    freertos_cm4f_port
+    freertos_posix_port
   SOURCES
-    arm_cm4f_port.c
+    posix_port.c
   PUB_DEFINES
-    FREERTOS_CFG_PORT_ARM_CM4F=1
+    FREERTOS_CFG_PORT_POSIX=1
   PUB_INCLUDES
     ./
   PRV_LIBRARIES
