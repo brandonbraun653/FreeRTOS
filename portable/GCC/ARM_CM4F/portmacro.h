@@ -96,7 +96,13 @@ typedef unsigned long UBaseType_t;
 
 #define portNVIC_INT_CTRL_REG		( * ( ( volatile uint32_t * ) 0xe000ed04 ) )
 #define portNVIC_PENDSVSET_BIT		( 1UL << 28UL )
-#define portEND_SWITCHING_ISR( xSwitchRequired ) { if( xSwitchRequired != pdFALSE ) { /* traceISR_EXIT_TO_SCHEDULER();*/ portYIELD(); } else { /* traceISR_EXIT(); */ } }
+
+#if defined( SEGGER_SYS_VIEW )
+#define portEND_SWITCHING_ISR( xSwitchRequired ) { if( xSwitchRequired != pdFALSE ) { traceISR_EXIT_TO_SCHEDULER(); portYIELD(); } else { traceISR_EXIT(); } }
+#else
+#define portEND_SWITCHING_ISR( xSwitchRequired ) { if( xSwitchRequired != pdFALSE ) portYIELD() }
+#endif 	/* SEGGER_SYS_VIEW */
+
 #define portYIELD_FROM_ISR( x ) portEND_SWITCHING_ISR( x )
 /*-----------------------------------------------------------*/
 
