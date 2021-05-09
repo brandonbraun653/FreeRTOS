@@ -182,11 +182,9 @@
     #define INCLUDE_uxTaskGetStackHighWaterMark2    0
 #endif
 
-#if defined( SEGGER_SYS_VIEW )
 #ifndef INCLUDE_pxTaskGetStackStart
-    #define INCLUDE_pxTaskGetStackStart 0
+	#define INCLUDE_pxTaskGetStackStart 0
 #endif
-#endif /* SEGGER_SYS_VIEW */
 
 #ifndef INCLUDE_eTaskGetState
     #define INCLUDE_eTaskGetState    0
@@ -454,37 +452,21 @@
     #define tracePOST_MOVED_TASK_TO_READY_STATE( pxTCB )
 #endif
 
-#if defined(SEGGER_SYS_VIEW)
-
 #ifndef traceREADDED_TASK_TO_READY_STATE
-#define traceREADDED_TASK_TO_READY_STATE(pxTCB)  traceMOVED_TASK_TO_READY_STATE(pxTCB)
+	#define traceREADDED_TASK_TO_READY_STATE( pxTCB )	traceMOVED_TASK_TO_READY_STATE( pxTCB )
 #endif
 
 #ifndef traceMOVED_TASK_TO_DELAYED_LIST
-#define traceMOVED_TASK_TO_DELAYED_LIST()
+	#define traceMOVED_TASK_TO_DELAYED_LIST()
 #endif
 
 #ifndef traceMOVED_TASK_TO_OVERFLOW_DELAYED_LIST
-#define traceMOVED_TASK_TO_OVERFLOW_DELAYED_LIST()
+	#define traceMOVED_TASK_TO_OVERFLOW_DELAYED_LIST()
 #endif
 
 #ifndef traceMOVED_TASK_TO_SUSPENDED_LIST
-#define traceMOVED_TASK_TO_SUSPENDED_LIST(pxTCB)
+	#define traceMOVED_TASK_TO_SUSPENDED_LIST( pxTCB )
 #endif
-
-#ifndef traceISR_EXIT_TO_SCHEDULER
-#define traceISR_EXIT_TO_SCHEDULER()
-#endif
-
-#ifndef traceISR_EXIT
-#define traceISR_EXIT()
-#endif
-
-#ifndef traceISR_ENTER
-#define traceISR_ENTER()
-#endif
-
-#endif /* SEGGER_SYS_VIEW */
 
 #ifndef traceQUEUE_CREATE
     #define traceQUEUE_CREATE( pxNewQueue )
@@ -732,6 +714,18 @@
 
 #ifndef traceTASK_NOTIFY_GIVE_FROM_ISR
     #define traceTASK_NOTIFY_GIVE_FROM_ISR( uxIndexToNotify )
+#endif
+
+#ifndef traceISR_EXIT_TO_SCHEDULER
+	#define traceISR_EXIT_TO_SCHEDULER()
+#endif
+
+#ifndef traceISR_EXIT
+	#define traceISR_EXIT()
+#endif
+
+#ifndef traceISR_ENTER
+	#define traceISR_ENTER()
 #endif
 
 #ifndef traceSTREAM_BUFFER_CREATE_FAILED

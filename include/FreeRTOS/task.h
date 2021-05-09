@@ -1538,7 +1538,6 @@ UBaseType_t uxTaskGetStackHighWaterMark( TaskHandle_t xTask ) PRIVILEGED_FUNCTIO
  */
 configSTACK_DEPTH_TYPE uxTaskGetStackHighWaterMark2( TaskHandle_t xTask ) PRIVILEGED_FUNCTION;
 
-#if defined( SEGGER_SYS_VIEW )
 /**
  * task.h
  * <PRE>uint8_t* pxTaskGetStackStart( TaskHandle_t xTask);</PRE>
@@ -1557,7 +1556,7 @@ configSTACK_DEPTH_TYPE uxTaskGetStackHighWaterMark2( TaskHandle_t xTask ) PRIVIL
  * @return A pointer to the start of the stack.
  */
 uint8_t* pxTaskGetStackStart( TaskHandle_t xTask) PRIVILEGED_FUNCTION;
-#endif /* SEGGER_SYS_VIEW */
+
 
 /* When using trace macros it is sometimes necessary to include task.h before
  * FreeRTOS.h.  When this is done TaskHookFunction_t will not yet have been defined,
