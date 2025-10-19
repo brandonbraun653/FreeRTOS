@@ -36,7 +36,7 @@
 #   export(TARGETS freertos_heap FILE "${PROJECT_BINARY_DIR}/ProjectConfig/freertos-heap.cmake")
 #
 # =============================================================================
-include("${COMMON_TOOL_ROOT}/cmake/utility/embedded.cmake")
+include(CTEmbedded)
 
 # ====================================================
 # Configure the FreeRTOS project appropriately
